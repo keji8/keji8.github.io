@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/white" >
+
+	<com.zykj.xishuashua.view.MyCommonTitle
+        android:id="@+id/aci_mytitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+	
+	<RadioGroup 
+	    android:id="@+id/radios"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thirty_five"
+        android:orientation="horizontal"
+        android:background="@drawable/circle_round_grey"
+        android:layout_margin="@dimen/five"
+        android:gravity="center_vertical">
+        <RadioButton
+            android:id="@+id/radio_btn1"
+            android:textSize="16sp"
+            android:textColor="@drawable/tab_font_color"
+            android:gravity="center"
+            android:button="@null"
+            android:checked="true"
+            android:layout_weight="1"
+        	android:background="@drawable/gift_wallet_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/gift_forthwith"/>
+        <RadioButton
+            android:id="@+id/radio_btn2"
+            android:textSize="16sp"
+            android:textColor="@drawable/tab_font_color"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_weight="1"
+        	android:background="@drawable/gift_wallet_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/gift_perpetual"/>
+	</RadioGroup>
+
+	<FrameLayout
+	    android:id="@+id/frag_layout"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@color/content_background_color" >
+
+	</FrameLayout>
+
+</LinearLayout>

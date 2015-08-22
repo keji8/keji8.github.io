@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 常用公用字符串 -->
+    <string name="app_name">喜刷刷</string>
+    <string name="aks_version">版本号</string>
+    
+    <!-- 按钮上字符串 -->
+	<string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载&#8230;</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    
+    <!-- 主题 -->
+    <string name="title">标题</string>
+    <string name="edit">Edit</string>
+    <string name="index_name">喜\n刷\n刷</string>
+    
+    <!-- tab -->
+    <string name="tab_index">首页</string>
+    <string name="tab_restaurant">红包通知</string>
+    <string name="tab_seting">我的</string>
+    
+    <!-- 首页 -->
+    <string name="index_news">新闻资讯</string>
+    <string name="index_news_more">更多>></string>
+    <string name="index_news_title">标题</string>
+    <string name="index_news_content">内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介&#8230;</string>
+    <string name="index_news_createtime">2015&#8211;06&#8211;27发布</string>
+    
+    <!-- 红包 -->
+    <string name="gift_forthwith">即时红包</string>
+    <string name="gift_perpetual">永久红包</string>
+    <string name="gift_time">倒计时0:02:46</string>
+    <string name="gift_distance">&lt;500m</string>
+    <string name="gift_type">商家</string>
+    <string name="gift_label">标签</string>
+    <string name="gift_date">2015-06-20发布</string>
+    <string name="gift_btn">抢红包0.06元</string>
+    
+    <!-- 红包 -->
+    <string name="user_mobile">183****5566</string>
+    <string name="user_login">登录/注册</string>
+    
+    <!-- 登录 -->
+    <string name="hint_usernames">请输入手机号</string>
+    <string name="hint_code">验证码</string>
+    <string name="hint_password">请填写密码</string>
+    <string name="forgetpwd"><u>忘记密码?</u></string>
+    
+    <string name="league_in">商家加盟</string>
+    <string name="login_in">登录</string>
+    <string name="register_in">注册</string>
+    <string name="identifying_code">点击获取验证码</string>
+    <string name="user_money">￥0.0</string>
+    <string name="user_num">0</string>
+    <string name="user_gift_money">红包金额</string>
+    <string name="user_gift_num">红包个数</string>
+    <string name="user_gift">我的钱包</string>
+    <string name="user_record">收益记录</string>
+    <string name="user_store">我的收藏</string>
+    <string name="user_setting">设置</string>
+    <string name="user_info">消息提示</string>
+    <string name="login_other">选用其他方式登录</string>
+    <string name="login_weibo">新浪微博</string>
+    <string name="login_qq">QQ帐号</string>
+    <string name="login_weixin">微信账号</string>
+    <string name="login_quickly">手机号快速注册</string>
+    <string name="login_register">没有账号?</string>
+    
+    <!-- 用户信息 -->
+    <string name="user_avatar">头像</string>
+    <string name="user_age">年龄</string>
+    <string name="user_sex">性别</string>
+    <string name="user_address">常驻地</string>
+    <string name="user_pwd">密码</string>
+    <string name="user_cfmpwd">确认密码</string>
+    <string name="user_uptpwd">修改密码</string>
+    <string name="user_update_pwd">确定修改</string>
+    <string name="next">下一步</string>
+    <string name="loginout">退出登录</string>
+    
+    <!-- 我的钱包 -->
+    <string name="alipay_name">请输入收款人姓名</string>
+    <string name="alipay_money">请输入提现金额</string>
+    <string name="alipay_allow">可提现金额：10元</string>
+    <string name="alipay_allow2">金额：10元</string>
+    <string name="btn_alipay">立即提现</string>
+    <string name="btn_calling">立即兑换</string>
+    <string name="text_alipay">余额不够怎么办</string>
+    <string name="go_advice">刷广告</string>
+    <string name="go_share">继续分享</string>
+    <string name="money_ten">10元</string>
+    <string name="money_thirty">30元</string>
+    <string name="money_fifty">50元</string>
+    <string name="user_alipay_username">支付宝账号</string>
+    <string name="user_alipay_hint">支付宝账号/手机号</string>
+    <string name="bind_true">确定</string>
+    <string name="bind_cancel">取消</string>
+    
+    <!-- 收益记录 -->
+    <string name="record_name">红包类型，发布者名称</string>
+    <string name="record_money">浏览/分享红包0.006元</string>
+    <string name="record_address">山东 临沂 2015&#8211;06&#8211;30</string>
+    
+    <!-- 设置 -->
+    <string name="setting_about">公司简介</string>
+    <string name="setting_reading">应用说明</string>
+    <string name="setting_league">申请加盟</string>
+    <string name="setting_version">版本更新</string>
+    <string name="setting_version_default">已是最新版本</string>
+    <string name="setting_push">推送设置</string>
+    <string name="setting_sound">消息音提示</string>
+    
+    <!-- 消息详情 -->
+    <string name="message_title">好像，累的时候转身你就在</string>
+    <string name="message_number">(2030)</string>
+    <string name="hot_comment">热门评论</string>
+    <string name="comment_name">用户昵称</string>
+    <string name="comment_content">评论内容评论内容评论内容</string>
+    <string name="comment_time">2小时前</string>
+    <string name="write_comment">写评论</string>
+    <string name="write_hint">评论(内容最多为800字)</string>
+    <string name="comment_cancel">取消</string>
+    <string name="comment_submit">发布</string>
+    
+    <!-- 其他 -->
+    <string name="load_data">正在加载,请稍候&#8230;</string>
+    <string name="links">网站链接：www.yuming.com</string>
+    <string name="message">恭喜你，从发布者名称那里获得了红包类型多少元</string>
+    <string name="power_on">智能开启</string>
+</resources>

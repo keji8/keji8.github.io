@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/eight"
+    android:paddingRight="@dimen/eight"
+    android:paddingBottom="@dimen/eight"
+    android:orientation="horizontal" >
+    
+    <ImageView 
+        android:layout_width="@dimen/sixty"
+        android:layout_height="@dimen/sixty"
+        android:src="@drawable/comment_img"
+        android:layout_marginRight="@dimen/five"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/app_name"/>
+
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView 
+	        android:id="@+id/comment_name"
+            android:text="@string/comment_name"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/t_seventeen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView 
+	        android:id="@+id/comment_time"
+            android:text="@string/comment_time"
+           	android:textColor="@color/grey"
+           	android:gravity="top"
+            android:textSize="@dimen/t_ten"
+            android:layout_width="wrap_content"
+           	android:layout_height="@dimen/eighteen"/>
+        <TextView 
+	        android:id="@+id/comment_content"
+            android:text="@string/comment_content"
+            android:textColor="@color/black"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/t_eighteen"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/twenty_five"/>
+    </LinearLayout>
+</LinearLayout>

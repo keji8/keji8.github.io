@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- 基本颜色定义  -->    
+	<color name="red">#FF0000</color>
+	<color name="grey">#B2B2B2</color>
+	<color name="lgrey">#d6d6d6</color>
+    <color name="dgrey">#C9C9C9</color>
+	<color name="black">#000000</color>
+	<color name="white">#FFFFFF</color>
+	<color name="yellow">#ffff00</color>
+	<color name="orange">#FB6236</color>
+	<color name="dorange">#FF5722</color>
+	<color name="golden">#ff6600</color>
+    <color name="poloere">#F8F3F0</color><!-- 米黄色  -->
+    <color name="subtransparent">#e0000000</color><!-- 半透明  -->
+    <color name="transparent">#00000000</color><!-- 透明  -->
+	
+    <!-- 背景色定义  -->	
+	<color name="content_bg">#ffffff</color><!-- 内容背景  -->
+	<color name="title_bg">#1CD2B9</color><!-- 标题栏背景  -->
+	<color name="black_dialog_bg">#cc242424</color><!-- 对话框半透明黑色背景  -->
+	<color name="black_guide_bg">#aa242424</color><!-- 对话框半透明黑色背景  -->
+	
+	<!-- 按钮背景颜色定义  -->
+    <color name="btn_unable">#9f353E47</color><!-- 按钮不可点使用颜色  -->
+    <color name="btn_red">#EC4E43</color><!-- 红色按钮 -->
+    <color name="btn_dred">#BD1F14</color><!-- 深一点的红色 -->
+    <color name="btn_lred">#FF6750</color><!-- 淡一点的红色  -->
+    <color name="btn_green">#55BC75</color><!-- 绿色按钮 -->
+    <color name="btn_dgreen">#27B362</color><!-- 深一点的绿色  -->
+    <color name="btn_lgreen">#88E3D7</color><!-- 淡一点的绿色  -->
+    <color name="btn_grey">#CAC8C9</color><!-- 灰色按钮 -->
+    <color name="btn_dgrey">#575757</color><!-- 深一点的灰色 -->
+    <color name="btn_lgrey">#ECE8E7</color><!-- 淡一点的灰色  -->
+    <color name="btn_golden">#ED9444</color><!-- 金色按钮  -->
+    <color name="btn_dgolden">#C86A14</color><!-- 深一点的金色  -->
+    <color name="btn_blue">#0EA9E3</color><!-- 蓝色按钮 -->
+    <color name="btn_orange">#E86740</color><!-- 橙色按钮  -->
+    
+	<!-- 文字颜色定义  -->
+	<color name="text_title">#ff0000</color><!-- 标题文本颜色  -->
+	<color name="text_subtitle">#412420</color><!-- 标题文本颜色  -->
+	<color name="text_common">#A2A2A2</color><!-- 普通文本颜色  -->
+	<color name="text_light">#ADADB0</color><!-- 淡一点的普通文本颜色  -->
+    <color name="text_green">#107E71</color>
+    <color name="text_red">#EE6459</color>
+    <color name="text_golden">#F7B374</color>
+    <color name="text_dgrey">#707070</color>
+    <color name="edit_hint">#989898</color>
+    
+    <!-- 其他 -->
+    <color name="theme_color">#23ade5</color>
+    <color name="btn_color">#FA634E</color>
+    <color name="dialog_color">#73498b</color> 
+    <color name="tab_font_normal">#343434</color>    
+    <color name="edit_hint_color">#CCCCCC</color>
+    <color name="content_background_color">#f5f5f5</color>
+    <color name="push_background_color">#e60012</color>
+    <color name="gift_btn_red">#f9644e</color>
+    <color name="gift_btn_lred">#faa194</color>
+    <color name="gift_btn_green">#3ECCB4</color>
+    <color name="label_back">#EFFAFF</color>
+    <color name="label_select">#24ACE6</color>
+    <color name="label_stroke">#DDF0F7</color>
+    <color name="label_button">#EAF9FF</color>
+</resources>

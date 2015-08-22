@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <!-- TabWidget管理所有的选项卡，id名是android指定的 -->
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <RadioGroup
+            android:id="@+id/tab_rgroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/tab_bg_top"
+            android:orientation="horizontal" >
+
+            <!-- style="@style/tab_button_bottom" -->
+            
+	        <com.zykj.xishuashua.view.MyRadioButton
+	            android:id="@+id/tab_radio1"
+	            app:drawable_size="25dp"
+	            style="@style/tab_button_bottom"
+	            android:checked="true"
+            	app:drawableTop="@drawable/tab_dw_index"
+	            android:text="@string/tab_index" />
+            
+	        <com.zykj.xishuashua.view.MyRadioButton
+	            android:id="@+id/tab_radio2"
+	            app:drawable_size="25dp"
+	            style="@style/tab_button_bottom"
+                app:drawableTop="@drawable/tab_dw_gift"
+	            android:text="@string/tab_restaurant" />
+
+	        <com.zykj.xishuashua.view.MyRadioButton
+	            android:id="@+id/tab_radio3"
+	            app:drawable_size="25dp"
+	            style="@style/tab_button_bottom"
+                app:drawableTop="@drawable/tab_dw_user"
+	            android:text="@string/tab_seting" />
+	        
+        </RadioGroup>
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/tab_rgroup" >
+        </FrameLayout>
+    </RelativeLayout>
+</TabHost>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:id="@+id/label_bottom"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:background="@color/label_button"
+	    android:orientation="horizontal">
+        <TextView 
+            android:id="@+id/power_on"
+            android:text="@string/power_on"
+            android:textColor="@color/theme_color"
+            android:layout_margin="@dimen/fifteen"
+            android:padding="@dimen/twelve"
+            android:gravity="center"
+            android:background="@drawable/bg_null_blue"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/label_bottom"
+		android:background="@color/label_back" 
+        android:orientation="vertical">
+		<RelativeLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="@dimen/fifty">
+		    <ImageView
+		        android:id="@+id/aci_back_btn"
+		        android:layout_width="wrap_content"
+		        android:layout_height="match_parent"
+		        android:layout_centerVertical="true"
+		        android:padding="@dimen/eight"
+		        android:contentDescription="@string/app_name"
+		        android:src="@drawable/label_title_back"/>
+		    <LinearLayout 
+		        android:layout_width="wrap_content"
+		        android:layout_height="match_parent"
+		        android:layout_centerInParent="true"
+		        android:orientation="horizontal"
+		        android:gravity="center_vertical">
+			    <TextView
+			        android:id="@+id/aci_title_tv"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/title"
+			        android:textColor="@color/label_select"
+			        style="@style/ui_titletext" />
+			    <TextView 
+			        android:id="@+id/aci_subtitle_tv"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="@dimen/four"
+			        android:text="@string/title"
+			        android:textSize="@dimen/t_fourteen"
+			        android:visibility="gone"
+			        style="@style/ui_titletext" />
+		    </LinearLayout>
+		</RelativeLayout>
+		<GridView 
+		    android:id="@+id/label_list"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:numColumns="3">
+		</GridView>
+    </LinearLayout>
+</RelativeLayout>

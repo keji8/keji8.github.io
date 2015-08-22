@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/content_background_color" >
+
+	<com.zykj.xishuashua.view.MyCommonTitle
+        android:id="@+id/aci_mytitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+	
+	<!-- 订单详情 -->
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:focusable="true"
+        android:focusableInTouchMode="true"
+	   	style="@style/ui_backgrounlayoutstyle" >
+	    <LinearLayout 
+	        android:layout_width="fill_parent"
+			android:layout_height="@dimen/forty_five"
+	        android:orientation="horizontal"
+	        android:gravity="center_vertical"
+	        android:paddingLeft="@dimen/fifteen"
+	        android:paddingRight="@dimen/fifteen"
+	        android:layout_marginTop="@dimen/ten">
+	        <ImageView 
+	            android:src="@drawable/login_username"
+	            android:contentDescription="@string/app_name"
+	            android:layout_width="@dimen/twenty"
+	            android:layout_height="@dimen/twenty"/>
+	      	<EditText 
+	      	    android:id="@+id/uu_username"
+	      	    android:layout_width="fill_parent"
+	      	    android:layout_height="wrap_content"
+				android:hint="@string/hint_usernames"
+				android:layout_marginLeft="@dimen/ten"
+                style="@style/edit_text"
+	      	    android:inputType="phone"/>
+	    </LinearLayout>
+	    <View 
+	        android:layout_width="fill_parent"
+	        android:layout_height="@dimen/one"
+	        android:background="@color/lgrey"/>
+	    <LinearLayout 
+	        android:layout_width="fill_parent"
+			android:layout_height="@dimen/forty_five"
+        	android:layout_marginTop="@dimen/fifteen"
+        	android:layout_marginBottom="@dimen/fifteen">
+		    <View 
+		        android:layout_width="0.0dip"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"/>
+	      	<EditText 
+	      	    android:id="@+id/phone_code"
+		        android:layout_width="@dimen/one_hundred_thirty"
+		        android:layout_height="@dimen/forty"
+	      	    android:inputType="phone"
+	      	    android:paddingLeft="@dimen/ten"
+				android:hint="@string/hint_code"
+	      	    android:layout_marginRight="@dimen/ten"
+	      	    android:background="@color/lgrey"/>
+		    <Button 
+		        android:id="@+id/identifying_code"
+		        android:layout_width="@dimen/one_hundred_thirty"
+		        android:layout_height="@dimen/forty"
+	        	android:background="@drawable/bg_round_grey"
+	        	android:gravity="center"
+	        	android:textColor="@color/white"
+		        android:textSize="@dimen/sixteen"
+		        android:text="@string/identifying_code"/>
+	    </LinearLayout>
+	</LinearLayout>
+    <Button 
+        android:id="@+id/app_register_in"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/ten"
+        android:layout_height="@dimen/forty_five"
+        android:background="@drawable/bg_round_blue"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="@string/register_in"
+		android:textSize="@dimen/sixteen"/>
+</LinearLayout>

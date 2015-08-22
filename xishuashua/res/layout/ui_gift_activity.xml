@@ -1,0 +1,52 @@
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/content_background_color"
+	android:orientation="vertical">
+
+	<com.zykj.xishuashua.view.MyCommonTitle
+        android:id="@+id/aci_mytitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+	
+	<RadioGroup 
+	    android:id="@+id/tab_gift"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <RadioButton
+            android:id="@+id/gift_left"
+            android:textSize="16sp"
+            android:textColor="@drawable/tab_font_color"
+            android:gravity="center"
+            android:button="@null"
+            android:checked="true"
+            android:background="@drawable/gift_tab_bg"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/gift_forthwith"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#eee"/>
+        <RadioButton
+            android:id="@+id/gift_right"
+            android:textSize="16sp"
+            android:textColor="@drawable/tab_font_color"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_weight="1"
+            android:background="@drawable/gift_tab_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/gift_perpetual"/>
+	</RadioGroup>
+    <FrameLayout
+        android:id="@+id/advert_contain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+</LinearLayout>

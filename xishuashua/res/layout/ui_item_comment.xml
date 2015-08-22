@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/eight"
+    android:background="@drawable/devide_gray_list"
+    android:orientation="horizontal" >
+    
+    <ImageView 
+        android:layout_width="@dimen/sixty"
+        android:layout_height="@dimen/sixty"
+        android:src="@drawable/comment_img"
+        android:scaleType="fitXY"
+        android:layout_marginTop="@dimen/three"
+        android:contentDescription="@string/app_name"/>
+
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/eight">
+        <TextView 
+	        android:id="@+id/comment_name"
+            android:text="@string/comment_name"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/t_seventeen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView 
+	        android:id="@+id/comment_content"
+            android:text="@string/comment_content"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/t_eighteen"
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/twenty_five"/>
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+	        <TextView 
+		        android:id="@+id/comment_time"
+	            android:text="@string/comment_time"
+            	android:textColor="@color/grey"
+            	android:gravity="bottom"
+	            android:layout_width="wrap_content"
+            	android:layout_height="@dimen/eighteen"/>
+	        <View 
+	            android:layout_width="0.0dip"
+            	android:layout_height="@dimen/eighteen"
+            	android:layout_weight="1"/>
+            <com.zykj.xishuashua.view.MyCheckBox
+                android:id="@+id/comment_num1"
+	            app:drawable_size="15dp"
+	            android:gravity="top"
+	            style="@style/box_button"
+	            android:layout_marginRight="@dimen/ten"
+                app:drawableLeft="@drawable/msg_dw_comment"
+                android:text="@string/message_number"/>
+            <com.zykj.xishuashua.view.MyCheckBox 
+                android:id="@+id/comment_num2"
+	            app:drawable_size="15dp"
+	            android:gravity="top"
+	            style="@style/box_button"
+                app:drawableLeft="@drawable/msg_dw_laud"
+                android:text="@string/message_number"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

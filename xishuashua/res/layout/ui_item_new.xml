@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/eight"
+    android:background="@color/white" >
+    
+    <ImageView 
+        android:id="@+id/new_img"
+        android:layout_width="@dimen/one_hundred"
+        android:layout_height="@dimen/eighty"
+        android:src="@drawable/t_new_img"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/app_name"/>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/eight">
+        <TextView 
+	        android:id="@+id/new_title"
+            android:text="@string/index_news_title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t_eighteen"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:layout_height="@dimen/twenty_five"/>
+        <TextView 
+	        android:id="@+id/new_content"
+            android:text="@string/index_news_content"
+            android:textColor="@color/text_light"
+            android:maxLines="2"
+            android:textSize="@dimen/t_sixteen"
+            android:paddingTop="@dimen/five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView 
+	        android:id="@+id/new_createtime"
+            android:text="@string/index_news_createtime"
+            android:textColor="@color/text_light"
+            android:textSize="@dimen/t_twelve"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    
+</LinearLayout>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/content_background_color"
+	android:orientation="vertical">
+	
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+		<com.zykj.xishuashua.view.MyCommonTitle
+	        android:id="@+id/aci_mytitle"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
+        
+        <RelativeLayout
+            android:id="@+id/rl_me_top"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/user_top_background">
+            
+            <com.zykj.xishuashua.view.RoundImageView
+                android:id="@+id/rv_me_avatar"
+                android:layout_width="@dimen/seventy"
+                android:layout_height="@dimen/seventy"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/fifteen"
+                android:background="@drawable/user_head_img"
+                android:contentDescription="@string/app_name"/>
+
+            <TextView
+                android:id="@+id/tv_me_mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_mobile"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/ten"
+                android:layout_toRightOf="@+id/rv_me_avatar"
+                android:textSize="@dimen/t_thirty"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/user_login"
+                android:layout_width="@dimen/one_hundred"
+                android:layout_height="@dimen/thirty"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_null_white"
+                android:text="@string/user_login"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/ten"
+                android:layout_toRightOf="@+id/rv_me_avatar"
+                android:textSize="@dimen/t_sixteen"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:background="@color/white">
+            
+            <LinearLayout
+                android:id="@+id/user_gift_left"
+                android:layout_width="0.0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/user_gift_money" />
+                <LinearLayout 
+                    android:layout_width="@dimen/sixty"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+	                <TextView
+	                    android:id="@+id/gift_money"
+	                    android:layout_width="match_parent"
+	                    android:layout_height="wrap_content"
+	                    android:textColor="@color/red"
+	                    android:gravity="center_horizontal"
+	                    android:textSize="@dimen/t_sixteen"
+	                    android:text="@string/user_money" />
+	                <TextView
+	                    android:layout_width="match_parent"
+	                    android:layout_height="wrap_content"
+	                    android:textColor="@color/black"
+	                    android:gravity="center_horizontal"
+	                    android:text="@string/user_gift_money"  />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/grey"/>
+            
+            <LinearLayout
+                android:id="@+id/user_gift_right"
+                android:layout_width="0.0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/user_gift_num" />
+                <LinearLayout 
+                    android:layout_width="@dimen/sixty"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+	                <TextView
+	                    android:id="@+id/gift_num"
+	                    android:layout_width="match_parent"
+	                    android:layout_height="wrap_content"
+	                    android:textColor="@color/orange"
+	                    android:gravity="center_horizontal"
+	                    android:textSize="@dimen/t_sixteen"
+	                    android:text="@string/user_num" />
+	                <TextView
+	                    android:layout_width="match_parent"
+	                    android:layout_height="wrap_content"
+	                    android:gravity="center_horizontal"
+	                    android:textColor="@color/black"
+	                    android:text="@string/user_gift_num"  />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/user_money"
+            style="@style/ui_mysetting"
+            android:layout_marginTop="@dimen/ten">
+            <ImageView
+                android:layout_width="@dimen/twenty_eight"
+                android:layout_height="@dimen/twenty_eight"
+                android:padding="@dimen/four"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/my_money" />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten"
+                android:textSize="@dimen/eighteen"
+                android:text="@string/user_gift"/>
+            <View 
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView 
+                android:contentDescription="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/my_right"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/fifteen"
+            android:layout_marginRight="@dimen/fifteen" />
+        
+        <LinearLayout
+            android:id="@+id/user_record"
+            style="@style/ui_mysetting">
+            <ImageView
+                android:layout_width="@dimen/twenty_eight"
+                android:layout_height="@dimen/twenty_eight"
+                android:padding="@dimen/four"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/my_record" />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten"
+                android:textSize="@dimen/eighteen"
+                android:text="@string/user_record"/>
+            <View 
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView 
+                android:contentDescription="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/my_right"/>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/user_store"
+            style="@style/ui_mysetting"
+            android:layout_marginTop="@dimen/ten">
+            <ImageView
+                android:layout_width="@dimen/twenty_eight"
+                android:layout_height="@dimen/twenty_eight"
+                android:padding="@dimen/four"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/my_store" />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten"
+                android:textSize="@dimen/eighteen"
+                android:text="@string/user_store"/>
+            <View 
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView 
+                android:contentDescription="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/my_right"/>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/user_setting"
+            style="@style/ui_mysetting"
+            android:layout_marginTop="@dimen/ten">
+            <ImageView
+                android:layout_width="@dimen/twenty_eight"
+                android:layout_height="@dimen/twenty_eight"
+                android:padding="@dimen/four"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/my_setting" />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten"
+                android:textSize="@dimen/eighteen"
+                android:text="@string/user_setting"/>
+            <View 
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView 
+                android:contentDescription="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/my_right"/>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/user_info"
+            style="@style/ui_mysetting"
+            android:layout_marginTop="@dimen/ten"
+            android:layout_marginBottom="@dimen/fifty">
+            <ImageView
+                android:layout_width="@dimen/twenty_eight"
+                android:layout_height="@dimen/twenty_eight"
+                android:padding="@dimen/four"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/my_info" />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten"
+                android:textSize="@dimen/eighteen"
+                android:text="@string/user_info"/>
+            <View 
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView 
+                android:contentDescription="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/my_right"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

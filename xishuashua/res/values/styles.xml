@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- 去掉TitleBar的Theme定义 -->
+    <style name="com.cheng.theme.app" parent="android:Theme.Light.NoTitleBar">
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:splitMotionEvents">false</item>
+    </style>
+    
+    <!-- 标题文本样式定义 -->
+    <style name="ui_titletext">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <!-- TabHost标签按钮样式 -->
+    <style name="tab_button_bottom">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@drawable/tab_font_color</item>
+        <item name="android:ellipsize">marquee</item>
+        <!-- 内部组件的排列 -->
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">0.0dip</item>
+        <!-- 设置RadioButton的原来图片为空 -->
+        <item name="android:button">@null</item>
+        <item name="android:background">@null</item>
+        <!-- 顶部的空隙 -->
+        <item name="android:paddingTop">8dp</item>
+
+        <!-- 底部的空隙 -->
+        <item name="android:paddingBottom">2.0dip</item>
+        <item name="android:drawablePadding">1.0dip</item>
+        <!-- 与其他组件宽度占相同比重 -->
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    
+    <!-- MyCheckBox2的风格 -->
+    <style name="envelope_checkbox">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@null</item>
+        <item name="android:text">@string/message_number</item>
+        <item name="android:textColor">@drawable/checkbox_font_color</item>
+        <item name="android:gravity">center</item>
+    </style>
+    
+    <!-- MyCheckBox的风格 -->
+    <style name="box_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:textColor">@drawable/checkbox_font_color</item>
+        <!-- 内部组件的排列 -->
+        <item name="android:gravity">center</item>
+        <!-- 设置CheckBox的原来图片为空 -->
+        <item name="android:button">@null</item>
+        <item name="android:background">@null</item>
+    </style>
+    
+    <!-- EditText的风格 -->
+    <style name="edit_text">
+        <!-- 背景色 -->
+        <item name="android:background">@null</item>
+        <!-- 提示颜色 -->
+        <item name="android:textColorHint">@color/edit_hint_color</item>
+    </style>
+    
+    <!-- dialog风格 -->
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 无边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+    
+    <!-- 自定义请求dialog的风格 -->
+    <style name="RequestDialog" parent="@style/CustomDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 模糊背景 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题显示 -->
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    
+    <!-- 登录背景样式  -->
+    <style name="ui_backgrounlayoutstyle">
+        <item name="android:background">@color/content_background_color</item>
+        <item name="android:paddingLeft">@dimen/ten</item>
+        <item name="android:paddingRight">@dimen/ten</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    
+    <!-- 我的设置  -->
+    <style name="ui_mysetting">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/forty_five</item>
+        <item name="android:paddingLeft">@dimen/fifteen</item>
+        <item name="android:paddingRight">@dimen/fifteen</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    
+	<style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+</resources>

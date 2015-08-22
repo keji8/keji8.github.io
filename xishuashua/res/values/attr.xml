@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="bg_icon" format="reference"></attr>
+    <attr name="bg_color" format="color"></attr>
+    <attr name="bg_text" format="string"></attr>
+    <attr name="bg_text_size" format="dimension"></attr>
+
+    <attr name="drawable_size" format="dimension"></attr>
+    <attr name="drawableTop" format="reference"></attr>
+    <attr name="drawableBottom" format="reference"></attr>
+    <attr name="drawableRight" format="reference"></attr>
+    <attr name="drawableLeft" format="reference"></attr>
+
+    <declare-styleable name="ChangeColorIconWithText">
+        <attr name="bg_icon"></attr>
+        <attr name="bg_color"></attr>
+        <attr name="bg_text"></attr>
+        <attr name="bg_text_size"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="roundedimageview">
+        <attr name="border_thickness" format="dimension" />
+        <attr name="border_inside_color" format="color" />
+        <attr name="border_outside_color" format="color"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="MyRadioButton">
+        <attr name="drawable_size"></attr>
+        <attr name="drawableTop"></attr>
+        <attr name="drawableBottom"></attr>
+        <attr name="drawableRight"></attr>
+        <attr name="drawableLeft"></attr>
+    </declare-styleable>
+</resources>

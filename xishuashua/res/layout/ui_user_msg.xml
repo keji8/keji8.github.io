@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/content_background_color" >
+
+	<com.zykj.xishuashua.view.MyCommonTitle
+        android:id="@+id/aci_mytitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+	
+	<!-- 消息提示 -->
+    <LinearLayout 
+    	android:background="@color/white"
+        android:layout_width="fill_parent"
+    	android:layout_marginTop="@dimen/ten"
+    	android:paddingLeft="@dimen/ten"
+    	android:paddingRight="@dimen/ten"
+		android:layout_height="@dimen/forty"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView 
+            android:text="@string/setting_push"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+        <View 
+	        android:layout_width="0.0dip"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"/>
+      	<ToggleButton 
+      	    android:id="@+id/toggle_push"
+      	    android:layout_width="43dp"
+      	    android:layout_height="20dp"
+      	    android:background="@drawable/toggle_btn"
+      	    android:textOn=""
+      	    android:textOff=""/>
+    </LinearLayout>
+    <LinearLayout 
+    	android:background="@color/white"
+        android:layout_width="fill_parent"
+		android:layout_height="@dimen/forty"
+        android:orientation="horizontal"
+    	android:layout_marginTop="@dimen/ten"
+    	android:paddingLeft="@dimen/ten"
+    	android:paddingRight="@dimen/ten"
+        android:gravity="center_vertical">
+        <TextView 
+            android:text="@string/setting_sound"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+        <View 
+	        android:layout_width="0.0dip"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"/>
+      	<ToggleButton 
+      	    android:id="@+id/toggle_sound"
+      	    android:layout_width="43dp"
+      	    android:layout_height="20dp"
+      	    android:background="@drawable/toggle_btn"
+      	    android:textOn=""
+      	    android:textOff=""/>
+    </LinearLayout>
+</LinearLayout>

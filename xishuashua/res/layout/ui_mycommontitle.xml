@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/fifty"
+    android:background="@color/theme_color" >
+    <ImageView
+        android:id="@+id/aci_back_btn"
+        android:layout_width="@dimen/fifty"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        android:padding="@dimen/ten"
+        android:src="@drawable/common_title_back"/>
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+	    <TextView
+	        android:id="@+id/aci_title_tv"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/title"
+	        style="@style/ui_titletext" />
+	    <TextView 
+	        android:id="@+id/aci_subtitle_tv"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="@dimen/four"
+	        android:text="@string/title"
+	        android:textSize="@dimen/t_fourteen"
+	        android:visibility="gone"
+	        style="@style/ui_titletext" />
+    </LinearLayout>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/aci_edit_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/aci_shared_btn"
+        android:text="@string/edit"
+        style="@style/ui_titletext"
+        android:padding="@dimen/five" />
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/aci_shared_btn"
+        android:layout_width="@dimen/fifty"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/ten"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/common_title_share"/>
+</RelativeLayout>
