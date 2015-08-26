@@ -66,7 +66,7 @@ public class GiftActivity extends FragmentActivity{
 		perpetualFragment = AdvertFragment.newInstance("1");//永久广告
 
         getSupportFragmentManager().beginTransaction().add(R.id.advert_contain,forthwithFragment).
-            add(R.id.advert_contain,perpetualFragment).commit();
+            add(R.id.advert_contain,perpetualFragment).show(forthwithFragment).hide(perpetualFragment).commit();
 	}
 
 	//退出操作

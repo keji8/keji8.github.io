@@ -35,10 +35,20 @@
 	            android:singleLine="true"/>
 	        <TextView 
 		        android:id="@+id/gift_time"
+		        android:visibility="gone"
 	            android:text="@string/gift_time"
 	            android:textColor="@color/btn_color"
 	            android:textSize="@dimen/ten"
 	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"/>
+	        <TextView 
+		        android:id="@+id/gift_date1"
+		        android:visibility="gone"
+	            android:text="@string/gift_date"
+	            android:textColor="@color/text_light"
+	            android:textSize="@dimen/t_ten"
+	            android:layout_width="wrap_content"
+	            android:layout_marginLeft="@dimen/five"
 	            android:layout_height="match_parent"/>
         </LinearLayout>
         <TextView 
@@ -81,7 +91,8 @@
 	            android:background="@drawable/bg_null_blue"
 	            android:layout_height="wrap_content"/>
 	        <TextView 
-		        android:id="@+id/gift_date"
+		        android:id="@+id/gift_date2"
+		        android:visibility="gone"
 	            android:text="@string/gift_date"
 	            android:textColor="@color/text_light"
 	            android:textSize="@dimen/t_ten"

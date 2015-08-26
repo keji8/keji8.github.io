@@ -1,5 +1,6 @@
 package com.zykj.xishuashua.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
@@ -32,6 +33,7 @@ public class UserActivity extends BaseActivity {
 	private MyCommonTitle myCommonTitle;
 	private RelativeLayout rl_me_top;
 	private RoundImageView rv_me_avatar;
+	private ArrayList<MyEnvelope> envelist;
 	private TextView tv_me_mobile,user_login,gift_money,gift_num;
 	private LinearLayout user_money,user_record,user_store,user_setting,user_info;
 	
@@ -104,6 +106,7 @@ public class UserActivity extends BaseActivity {
 		HttpUtils.getmemberenvelopes(new EntityHandler<MyEnvelope>(MyEnvelope.class){
 			@Override
 			public void onReadSuccess(List<MyEnvelope> list) {
+				envelist = (ArrayList<MyEnvelope>)list;
 				MyRequestDailog.closeDialog();
 				float envelope = 0f;
 				for (MyEnvelope myEnvelope : list) {
@@ -170,6 +173,7 @@ public class UserActivity extends BaseActivity {
 			break;
 		case R.id.user_record:
 			/*点击收益记录*/
+			startActivity(new Intent(UserActivity.this,UserRecordActivity.class).putParcelableArrayListExtra("envelist", envelist));
 			break;
 		case R.id.user_store:
 			/*点击我的收藏*/

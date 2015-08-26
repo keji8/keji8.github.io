@@ -350,7 +350,16 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 		}
 		@Override
 		public void onFinish() {//计时完毕时触发
-			gift_message.setText("您获得了"+good.getString("goods_price")+"元红包，分享可得2元红包！");
+			RequestParams enveparams = new RequestParams();
+			enveparams.put("goods_id", goods_id);
+			enveparams.put("store_id", good.getString("store_id"));
+			enveparams.put("points", good.getString("goods_price"));
+			HttpUtils.getenvePoints(new HttpErrorHandler() {
+				@Override
+				public void onRecevieSuccess(JSONObject json) {
+					gift_message.setText("您获得了"+good.getString("goods_price")+"元红包，分享可得2元红包！");
+				}
+			}, enveparams);
 		}
 		@Override
 		public void onTick(long millisUntilFinished){//计时过程显示

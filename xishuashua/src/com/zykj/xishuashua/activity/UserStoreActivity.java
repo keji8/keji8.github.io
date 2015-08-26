@@ -47,7 +47,7 @@ public class UserStoreActivity extends BaseActivity{
 			@Override
 			public void onReadSuccess(List<Gift> list) {
 				MyRequestDailog.closeDialog();
-				myListView.setAdapter(new GiftAdapter(UserStoreActivity.this, R.layout.ui_item_gift, list, "1"));
+				myListView.setAdapter(new GiftAdapter(UserStoreActivity.this, R.layout.ui_item_gift, list, "2"));
 			}
 		});
     }

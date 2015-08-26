@@ -35,6 +35,8 @@ public class UrlContants {
     public static final String NEWSLIST = "m=user&a=getnewslist";//获取新闻资讯
     
     public static final String ENVELIST = "m=user&a=getgoodslist";//获取红包列表
+    
+    public static final String FORONEUSER = "m=user&a=getenvelist_foroneuser";//获取红包通知
 
     public static final String GOODDETAIL = "m=user&a=getGoodsDetaiL";//红包详情
 
@@ -61,6 +63,8 @@ public class UrlContants {
     public static final String GETCOMMENT = "m=user&a=getcomment";//用户提交评论
     
     public static final String SOMEKINDENVELIST = "m=user&a=getsomekindenvelist";//获取红包
+    
+    public static final String GETENVEPOINTS = "m=user&a=getenvePoints";//抢红包
     
     public static String getUrl(String token){
         if(token==null || token.equals("")){

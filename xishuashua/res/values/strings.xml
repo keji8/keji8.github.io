@@ -103,7 +103,7 @@
     <!-- 收益记录 -->
     <string name="record_name">红包类型，发布者名称</string>
     <string name="record_money">浏览/分享红包0.006元</string>
-    <string name="record_address">山东 临沂 2015&#8211;06&#8211;30</string>
+    <string name="record_address">2015&#8211;06&#8211;30</string>
     
     <!-- 设置 -->
     <string name="setting_about">公司简介</string>

@@ -64,6 +64,11 @@ public class HttpUtils {
         client.post(UrlContants.getUrl(UrlContants.ENVELIST), params, handler);
     }
 
+    /*获取红包通知*/
+    public static void getenvelist_foroneuser(AsyncHttpResponseHandler handler, RequestParams params){
+        client.post(UrlContants.getUrl(UrlContants.FORONEUSER), params, handler);
+    }
+    
     /*获取推送设置和消息提示音状态*/
     public static void getpushandhint(AsyncHttpResponseHandler handler){
         client.post(UrlContants.getUrl(UrlContants.GEIPUSHANDHINT), handler);
@@ -127,6 +132,11 @@ public class HttpUtils {
     /*首页即时红包*/
     public static void getsomekindenvelist(AsyncHttpResponseHandler handler, RequestParams params){
         client.post(UrlContants.getUrl(UrlContants.SOMEKINDENVELIST), params, handler);
+    }
+
+    /*抢红包*/
+    public static void getenvePoints(AsyncHttpResponseHandler handler, RequestParams params){
+        client.post(UrlContants.getUrl(UrlContants.GETENVEPOINTS), params, handler);
     }
     
 }

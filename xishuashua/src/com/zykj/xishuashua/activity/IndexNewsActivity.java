@@ -37,6 +37,7 @@ public class IndexNewsActivity extends BaseActivity implements IXListViewListene
 	private XListView advert_listview;
 	private List<Gift> news = new ArrayList<Gift>();
 	private Handler mHandler;
+	private CommonAdapter<Gift> newAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +57,19 @@ public class IndexNewsActivity extends BaseActivity implements IXListViewListene
 		myCommonTitle.setTitle("新闻资讯");
 
 		advert_listview = (XListView)findViewById(R.id.advert_listview);
+		newAdapter = new CommonAdapter<Gift>(this, R.layout.ui_item_new, news) {
+			@Override
+			public void convert(ViewHolder holder, Gift newinfo) {
+				holder.setImageUrl(R.id.new_img, UrlContants.GIFTIMGURL+newinfo.getGoods_image(), 10f)
+						.setText(R.id.new_title, newinfo.getGoods_name())
+						.setText(R.id.new_content, newinfo.getGoods_jingle().length()>50?newinfo.getGoods_jingle().substring(0,50):newinfo.getGoods_jingle());
+			}
+		};
         advert_listview.setAdapter(newAdapter);
-        advert_listview.setOnItemClickListener(this);
 		advert_listview.setDividerHeight(0);
 		advert_listview.setPullLoadEnable(true);
 		advert_listview.setXListViewListener(this);
+        advert_listview.setOnItemClickListener(this);
 	}
 
 	/**
@@ -82,15 +91,6 @@ public class IndexNewsActivity extends BaseActivity implements IXListViewListene
 		}, params);
 	}
 	
-	private CommonAdapter<Gift> newAdapter = new CommonAdapter<Gift>(this, R.layout.ui_item_new, news) {
-		@Override
-		public void convert(ViewHolder holder, Gift newinfo) {
-			holder.setImageUrl(R.id.gift_image, UrlContants.GIFTIMGURL+newinfo.getGoods_image(), 10f)
-					.setText(R.id.new_title, newinfo.getGoods_name())
-					.setText(R.id.new_content, newinfo.getGoods_jingle().length()>50?newinfo.getGoods_jingle().substring(0,50):newinfo.getGoods_jingle());
-		}
-	};
-
 	@Override
 	public void onItemClick(AdapterView<?> parent, View convertView, int position, long checkedId) {
 		String newId = news.get(position-1).getGoods_id();
