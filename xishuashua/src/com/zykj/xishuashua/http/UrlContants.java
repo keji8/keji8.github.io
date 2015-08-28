@@ -6,7 +6,7 @@ package com.zykj.xishuashua.http;
  */
 public class UrlContants {
 
-    public static final String BASE_URL = "http://192.168.1.141/appif/api.php?";
+    public static final String BASE_URL = "http://192.168.1.141/appif/api.php?";//192.168.1.141//115.28.167.43
     
     public static final String IAMGEURL = "http://192.168.1.141/data/upload/cms/special/"+"%s";//轮播图
     

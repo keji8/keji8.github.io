@@ -134,6 +134,5 @@ public class AppModel {
 		this.setMobile("");
 		this.setMoney("");
 		this.setNumber("");
-		utils.clear();
 	}
 }
