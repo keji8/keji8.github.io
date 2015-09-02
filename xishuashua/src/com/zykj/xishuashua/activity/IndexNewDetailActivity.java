@@ -35,6 +35,7 @@ import com.zykj.xishuashua.model.Comment;
 import com.zykj.xishuashua.utils.Tools;
 import com.zykj.xishuashua.view.MyCheckBox;
 import com.zykj.xishuashua.view.MyCommonTitle;
+import com.zykj.xishuashua.view.MyRequestDailog;
 import com.zykj.xishuashua.view.UIDialog;
 import com.zykj.xishuashua.view.XListView;
 import com.zykj.xishuashua.view.XListView.IXListViewListener;
@@ -87,6 +88,7 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 			@Override
 			public void convert(ViewHolder holder, Comment comment) {
 				holder.setText(R.id.comment_name, comment.getMember_name())//
+					.setImageUrl(R.id.comment_images, UrlContants.ABATARURL+comment.getMember_avatar(), 10f)//
 					.setText(R.id.comment_content, comment.getComment_content())//
 					.setText(R.id.comment_num1, "("+comment.getComment_subcommentnum()+")")//
 					.setText(R.id.comment_num2, "("+comment.getComment_favoratenum()+")")//
@@ -96,6 +98,7 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 		gift_message = (TextView)findViewById(R.id.gift_message);//提示信息
 		gift_message.setVisibility(View.GONE);
 		msg_listview = (XListView)findViewById(R.id.msg_listview);//评论列表
+		msg_listview.setVisibility(View.GONE);
 		msg_listview.setAdapter(commonAdapter);
 		msg_listview.setPullLoadEnable(true);
 		msg_listview.setXListViewListener(this);
@@ -130,8 +133,8 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 	private void requestData() {
 		RequestParams params = new RequestParams();
 		params.put("goods_id", newId);
+		MyRequestDailog.showDialog(this, "");
 		HttpUtils.getGoodDetail(rel_getGoodDetail, params);
-		requestComments();
 	}
 	
 	private void requestComments(){
@@ -172,6 +175,7 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 			msg_dw_star.setText(good.getString("goods_collectnum"));
 			msg_dw_comment.setText(good.getString("goods_commentnum"));
 			msg_dw_share.setText(good.getString("goods_sharenum"));
+			requestComments();
 		}
 	};
 	
@@ -181,6 +185,8 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 	private AsyncHttpResponseHandler rel_getcomment = new EntityHandler<Comment>(Comment.class) {
 		@Override
 		public void onReadSuccess(List<Comment> list) {
+			MyRequestDailog.closeDialog();
+			msg_listview.setVisibility(View.VISIBLE);
 			if(page == 1){comments.clear();}
 			comments.addAll(list);
 			commonAdapter.notifyDataSetChanged();
@@ -230,7 +236,10 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 	public void onItemClick(AdapterView<?> viewgGroup, View view, int position, long checkId) {
 		Comment comment = comments.get(position-2);
 		startActivity(new Intent(IndexNewDetailActivity.this, CommentDetailActivity.class)
-			.putExtra("imgUrl", good.getString("goods_image")).putExtra("comment", comment));
+			.putExtra("goodid", good.getString("goods_id"))
+			.putExtra("imgUrl", good.getString("goods_image"))
+			.putExtra("content", good.getString("goods_jingle"))
+			.putExtra("comment", comment));
 	}
 
 	private void onLoad() {

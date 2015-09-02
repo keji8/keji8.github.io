@@ -5,9 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="19" />
-
+        android:minSdkVersion="9"
+        android:targetSdkVersion="21" />
     <!-- 权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission>
@@ -35,9 +34,15 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     
+ 	<uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 	<uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
     <!-- 百度地地图 -->
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+
+	<!-- Push service 百度推送需要的权限 -->
+	<uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+	<uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+	<uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     
     <application
         android:name="com.zykj.xishuashua.BaseApp"
@@ -219,7 +224,7 @@
 			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateHidden|adjustResize" >
 			<intent-filter>
-				<data android:scheme="tencent100371282" />
+				<data android:scheme="tencent1104789886" />
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.BROWSABLE" />
 				<category android:name="android.intent.category.DEFAULT" />
@@ -231,8 +236,62 @@
 			android:theme="@android:style/Theme.Translucent.NoTitleBar"
 			android:configChanges="keyboardHidden|orientation|screenSize"
 			android:exported="true"
-			android:screenOrientation="portrait" /> 
-        
+			android:screenOrientation="portrait" />
+		
+        <!-- 此处Receiver名字修改为当前包名路径 -->
+		<receiver android:name="com.zykj.xishuashua.view.MyPushMessageReceiver">
+            <intent-filter>
+                <!-- 接收push消息 -->
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+                <!-- 接收bind,unbind,fetch,delete等反馈消息 -->
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+            </intent-filter>
+		</receiver>
+		
+		<!-- 用于接收系统消息以保证PushService正常运行 -->
+        <receiver
+            android:name="com.baidu.android.pushservice.PushServiceReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+                <!-- 以下四项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+		<!-- Push服务接收客户端发送的各种请求-->
+        <receiver
+            android:name="com.baidu.android.pushservice.RegistrationReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.METHOD" />
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.baidu.android.pushservice.PushService"
+            android:exported="true"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.baidu.android.pushservice.CommandService"
+            android:exported="true" />
+		
 		<service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -242,6 +301,10 @@
                 </action>
             </intent-filter>
         </service>
+        <!-- 在百度开发者中心查询应用的API Key -->
+        <meta-data
+            android:name="api_key"
+            android:value="ybkkYz0vHYgGdfcpPnvcTSL0" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="v6K0Hm82yyWtysadFtUqqe99" />

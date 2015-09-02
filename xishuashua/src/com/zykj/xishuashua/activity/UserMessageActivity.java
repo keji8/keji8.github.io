@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ToggleButton;
 
 import com.alibaba.fastjson.JSONObject;
-import com.umeng.message.PushAgent;
 import com.zykj.xishuashua.BaseActivity;
 import com.zykj.xishuashua.R;
 import com.zykj.xishuashua.http.HttpErrorHandler;
@@ -17,15 +16,11 @@ public class UserMessageActivity extends BaseActivity{
 	private MyCommonTitle myCommonTitle;
 	private ToggleButton toggle_push,toggle_sound;
 	private String push,sound;
-    private PushAgent mPushAgent;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ui_user_msg);
-		
-		mPushAgent = PushAgent.getInstance(this);
-		mPushAgent.onAppStart();
 		
 		initView();
 		requestData();
@@ -53,14 +48,14 @@ public class UserMessageActivity extends BaseActivity{
 				toggle_push.setChecked("1".equals(push));
 				toggle_sound.setChecked("1".equals(sound));
 				if("1".equals(push)){
-					mPushAgent.disable();
+//					mPushAgent.disable();
 				}else{
-					mPushAgent.enable();
+//					mPushAgent.enable();
 				}
 				if("1".equals(sound)){
-					mPushAgent.setNoDisturbMode(23, 0, 6, 0);
+//					mPushAgent.setNoDisturbMode(23, 0, 6, 0);
 				}else{
-					mPushAgent.setNoDisturbMode(0, 0, 0, 0);
+//					mPushAgent.setNoDisturbMode(0, 0, 0, 0);
 				}
 			}
 		});

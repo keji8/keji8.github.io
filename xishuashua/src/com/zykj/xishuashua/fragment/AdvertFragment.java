@@ -33,7 +33,7 @@ import com.zykj.xishuashua.view.XListView.IXListViewListener;
 @SuppressLint("HandlerLeak")
 public class AdvertFragment extends Fragment implements IXListViewListener,OnItemClickListener{
 
-    private String isperpetual="0";//0即时红包  1永久红包
+    private String isperpetual="1";//1即时红包 0永久红包
 
 	private static final String NUM = "5";//每页显示条数
 	private int page = 1;
@@ -69,7 +69,7 @@ public class AdvertFragment extends Fragment implements IXListViewListener,OnIte
         super.onActivityCreated(savedInstanceState);
 		mHandler = new Handler();
         isperpetual=getArguments().getString("iscontaintext");
-        adapter = new GiftAdapter(getActivity(), R.layout.ui_item_gift, gifts, isperpetual);
+        adapter = new GiftAdapter(getActivity(), R.layout.ui_item_gift, gifts);
 		myListView.setAdapter(adapter);
 		if("1".equals(isperpetual)){
 			handler.sendEmptyMessage(1);
@@ -83,7 +83,7 @@ public class AdvertFragment extends Fragment implements IXListViewListener,OnIte
      */
     public void requestData() {
     	RequestParams params = new RequestParams();
-    	params.put("marketprice", "0".equals(isperpetual)?"!=0":"=0");
+    	params.put("marketprice", isperpetual);//0即时红包  1永久红包
     	params.put("page", String.valueOf(page));
     	params.put("per_page", NUM);
 		MyRequestDailog.showDialog(getActivity(), "");
@@ -143,13 +143,17 @@ public class AdvertFragment extends Fragment implements IXListViewListener,OnIte
 				//①：其实在这块需要精确计算当前时间
 				for(int index =0;index<gifts.size();index++){
 					Gift gift = gifts.get(index);
-					long continueTime = Long.parseLong(StringUtil.toString(gift.getGoods_marketprice(), "0"));
-					long startTime = Long.parseLong(StringUtil.toString(gift.getGoods_selltime(), "0"))/1000;
-					long seconds = startTime + continueTime - System.currentTimeMillis();
-					if(seconds>1){//判断是否还有条目能够倒计时，如果能够倒计时的话，延迟一秒，让它接着倒计时
-						gift.setGoods_marketprice(String.valueOf(seconds-1));
+					if(gift.getCurrentSeconds() == null){
+						long continueTime = Long.parseLong(StringUtil.toString(gift.getGoods_marketprice(), "0"));
+						long startTime = Long.parseLong(StringUtil.toString(gift.getGoods_selltime(), "0"));
+						long seconds = startTime + continueTime - System.currentTimeMillis()/1000;
+						gift.setCurrentSeconds(String.valueOf(seconds));
+					}
+					long time = Long.parseLong(gift.getCurrentSeconds());
+					if(time>1){//判断是否还有条目能够倒计时，如果能够倒计时的话，延迟一秒，让它接着倒计时
+						gift.setCurrentSeconds(String.valueOf(time-1));
 					}else{
-						gift.setGoods_marketprice("0");
+						gift.setCurrentSeconds("0");
 					}
 				}
 				//②：for循环执行的时间

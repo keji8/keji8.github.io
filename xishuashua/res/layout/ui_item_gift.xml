@@ -11,7 +11,7 @@
 		android:id="@+id/gift_image"
         android:layout_width="@dimen/sixty_five"
         android:layout_height="@dimen/sixty"
-        android:src="@drawable/t_new_img"
+        android:src="@drawable/icon_image_default"
         android:scaleType="fitXY"
         android:contentDescription="@string/app_name"/>
     
@@ -90,6 +90,10 @@
 	            android:layout_marginLeft="@dimen/five"
 	            android:background="@drawable/bg_null_blue"
 	            android:layout_height="wrap_content"/>
+	        <View 
+	            android:layout_width="0.0dip"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"/>
 	        <TextView 
 		        android:id="@+id/gift_date2"
 		        android:visibility="gone"
@@ -97,13 +101,10 @@
 	            android:textColor="@color/text_light"
 	            android:textSize="@dimen/t_ten"
 	            android:layout_gravity="bottom"
+	            android:gravity="bottom"
 	            android:layout_width="wrap_content"
 	            android:layout_marginLeft="@dimen/five"
-	            android:layout_height="wrap_content"/>
-	        <View 
-	            android:layout_width="0.0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="1"/>
+	            android:layout_height="25dp"/>
 	        <Button 
 		        android:id="@+id/gift_btn"
 	            android:text="@string/gift_btn"

@@ -44,8 +44,9 @@ public class MyCommonTitle extends RelativeLayout {
 
 	public void setBackLisener(OnClickListener backListener) {
 		if(backListener != null) {
-			titleBack.setOnClickListener(null);
 			titleBack.setOnClickListener(backListener);
+		}else{
+			titleBack.setOnClickListener(null);
 		}
 	}
 	

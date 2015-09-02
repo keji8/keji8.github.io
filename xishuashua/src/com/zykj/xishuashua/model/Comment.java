@@ -17,6 +17,7 @@ public class Comment implements Serializable{
 	private String comment_supercommentid;
 	private String comment_commenttime;
 	private String comment_id;
+	private String member_avatar;
 	
 	public String getMember_id() {
 		return member_id;
@@ -71,5 +72,11 @@ public class Comment implements Serializable{
 	}
 	public void setComment_id(String comment_id) {
 		this.comment_id = comment_id;
+	}
+	public String getMember_avatar() {
+		return member_avatar;
+	}
+	public void setMember_avatar(String member_avatar) {
+		this.member_avatar = member_avatar;
 	}
 }

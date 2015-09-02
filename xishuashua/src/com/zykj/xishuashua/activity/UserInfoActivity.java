@@ -168,7 +168,7 @@ public class UserInfoActivity extends BaseActivity{
 				photoIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 				startActivityForResult(photoIntent, 1);
 			}else{
-				updateCurrentUserSex("0");
+				updateCurrentUserSex("1");
 			}
 			break;
 		case R.id.dialog_modif_2:
@@ -190,7 +190,7 @@ public class UserInfoActivity extends BaseActivity{
 								+ "/DCIM/Camera", timeString + ".jpg")));
 				startActivityForResult(shootIntent, 2);
 			}else{
-				updateCurrentUserSex("1");
+				updateCurrentUserSex("2");
 			}
 			break;
 		case R.id.dialog_modif_3:
@@ -412,14 +412,14 @@ public class UserInfoActivity extends BaseActivity{
 	/**
 	 * 更新用户性别
 	 */
-	private void updateCurrentUserSex(String sex){
+	private void updateCurrentUserSex(final String sex){
 		RequestParams params = new RequestParams();
 		params.put("member_id", BaseApp.getModel().getUserid());
 		params.put("member_sex", sex);
 		HttpUtils.uploadMemberInfo(new HttpErrorHandler() {
 			@Override
 			public void onRecevieSuccess(JSONObject json) {
-				user_age.setText(""+selectval);//年龄
+				user_sex.setText("1".equals(sex)?"男":"2".equals(sex)?"女":"选择");//年龄
 			}
 			@Override
 			public void onRecevieFailed(String status, JSONObject json) {

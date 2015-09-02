@@ -6,7 +6,8 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
 
-import com.umeng.message.PushAgent;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.zykj.xishuashua.BaseTabActivity;
 import com.zykj.xishuashua.R;
 import com.zykj.xishuashua.utils.Tools;
@@ -34,8 +35,7 @@ public class MainActivity extends BaseTabActivity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tabs_layout);
-		
-		PushAgent.getInstance(this).onAppStart();
+
 		m_tab = getTabHost();
 		initView();
 	}

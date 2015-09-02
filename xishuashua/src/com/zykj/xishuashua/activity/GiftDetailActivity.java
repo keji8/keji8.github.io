@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,6 +34,8 @@ import com.zykj.xishuashua.http.HttpErrorHandler;
 import com.zykj.xishuashua.http.HttpUtils;
 import com.zykj.xishuashua.http.UrlContants;
 import com.zykj.xishuashua.model.Comment;
+import com.zykj.xishuashua.utils.CommonUtils;
+import com.zykj.xishuashua.utils.StringUtil;
 import com.zykj.xishuashua.utils.Tools;
 import com.zykj.xishuashua.view.MyCheckBox;
 import com.zykj.xishuashua.view.MyCommonTitle;
@@ -59,6 +62,7 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 	private XListView msg_listview;
 	private CommonAdapter<Comment> commonAdapter;
 	private View headView;
+	private boolean flag = false;
 	private EditText text;
 	private Handler mHandler = new Handler();
 	private List<Comment> comments = new ArrayList<Comment>();
@@ -84,11 +88,14 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 		myCommonTitle = (MyCommonTitle)findViewById(R.id.aci_mytitle);
 		myCommonTitle.setTitle("红包详情");
 		myCommonTitle.setLisener(null, this);
+		myCommonTitle.setBackLisener(null);
+		myCommonTitle.setBackLisener(this);
 		
 		commonAdapter = new CommonAdapter<Comment>(this, R.layout.ui_item_comment, comments) {
 			@Override
 			public void convert(ViewHolder holder, Comment comment) {
 				holder.setText(R.id.comment_name, comment.getMember_name())//
+					.setImageUrl(R.id.comment_images, UrlContants.ABATARURL+comment.getMember_avatar(), 10f)//
 					.setText(R.id.comment_content, comment.getComment_content())//
 					.setText(R.id.comment_num1, "("+comment.getComment_subcommentnum()+")")//
 					.setText(R.id.comment_num2, "("+comment.getComment_favoratenum()+")")//
@@ -156,8 +163,21 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 			check_star = "1".equals(json.getString("collect"));
 			good = json.getJSONObject("data");
 			//gift_message.setText("恭喜你，浏览15之后将会获得商家红包2元！");
-			timer = new TimeCount(15000, 1000);//构造CountDownTimer对象
-			timer.start();
+			long continueTime = Long.parseLong(StringUtil.toString(good.getString("goods_marketprice"), "0"));
+			long startTime = Long.parseLong(StringUtil.toString(good.getString("goods_selltime"), "0"));
+			long seconds = startTime + continueTime - System.currentTimeMillis()/1000;
+			if(continueTime == 0 && !"news".equals(good.getString("store_name"))){
+				timer = new TimeCount(15000, 1000);//构造CountDownTimer对象
+				timer.start();
+			}
+			if(continueTime>0 && !"news".equals(good.getString("store_name"))){
+				if(seconds>1){
+					timer = new TimeCount(15000, 1000);//构造CountDownTimer对象
+					timer.start();
+				}else{
+					gift_message.setText("红包已过期，分享可得2元！");
+				}
+			}
 			message_title.setText(good.getString("goods_name"));
 			msg_content.setText(good.getString("goods_jingle"));
 			msg_content_img.removeAllViews();
@@ -194,8 +214,25 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
+		case R.id.aci_back_btn:
+			long continueTime = Long.parseLong(StringUtil.toString(good.getString("goods_marketprice"), "0"));
+			long startTime = Long.parseLong(StringUtil.toString(good.getString("goods_selltime"), "0"));
+			long seconds = startTime + continueTime - System.currentTimeMillis()/1000;
+			if(continueTime>0 && !"news".equals(good.getString("store_name"))){
+				if(seconds<1){
+					flag = true;
+				}
+			}
+			if(!flag){
+				CommonUtils.exitGift(4, this);
+			}else{
+				finish();
+			}
+			break;
 		case R.id.aci_shared_btn:
 			//分享
+			CommonUtils.showShare(this, getString(R.string.app_name), "我从"+good.getString("goods_name")+"那里获得了"+good.getString("goods_price")+"元的红包", 
+					"http://dashboard.mob.com/Uploads/1b692f6c9fceaf93c407afd889c36090.png", "");
 			break;
 		case R.id.layout_laud:
 			clickfavorite();//点赞
@@ -234,6 +271,7 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 	protected void onPause() {
 		super.onPause();
 		gift_message.setText("红包获取失败!");
+		flag = true;
 		if(timer != null)
 			timer.cancel();
 	}
@@ -242,7 +280,10 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 	public void onItemClick(AdapterView<?> viewgGroup, View view, int position, long checkId) {
 		Comment comment = comments.get(position-2);
 		startActivity(new Intent(GiftDetailActivity.this, CommentDetailActivity.class)
-			.putExtra("imgUrl", good.getString("goods_image")).putExtra("comment", comment));
+			.putExtra("goodid", good.getString("goods_id"))
+			.putExtra("imgUrl", good.getString("goods_image"))
+			.putExtra("content", good.getString("goods_jingle"))
+			.putExtra("comment", comment));
 	}
 
 	private void onLoad() {
@@ -343,6 +384,14 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 		}, urlparams);
 	}
 	
+	//退出操作
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(!flag){
+			CommonUtils.exitGift(keyCode, this);
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
 	/** 定义一个倒计时的内部类 */
 	class TimeCount extends CountDownTimer {
 		public TimeCount(long millisInFuture, long countDownInterval) {
@@ -358,6 +407,13 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 				@Override
 				public void onRecevieSuccess(JSONObject json) {
 					gift_message.setText("您获得了"+good.getString("goods_price")+"元红包，分享可得2元红包！");
+					flag = true;
+				}
+
+				@Override
+				public void onRecevieFailed(String status, JSONObject json) {
+					gift_message.setText("红包获取失败,请稍后再试");
+					flag = true;
 				}
 			}, enveparams);
 		}

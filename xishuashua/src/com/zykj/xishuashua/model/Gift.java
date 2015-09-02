@@ -27,6 +27,10 @@ public class Gift implements Serializable{
 
 	private String giftxingzhi;//红包性质
 	private String giftLabel;//红包标签
+	private String currentSeconds;//当前剩余秒数
+	private String store_name;//为"news"就是新闻资讯
+	private String grade_id;//0个人、商家、app
+	private String goods_serial;//兴趣标签
 	
 	public String getGoods_id() {
 		return goods_id;
@@ -130,8 +134,28 @@ public class Gift implements Serializable{
 	public void setGiftLabel(String giftLabel) {
 		this.giftLabel = giftLabel;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getCurrentSeconds() {
+		return currentSeconds;
 	}
-	
+	public void setCurrentSeconds(String currentSeconds) {
+		this.currentSeconds = currentSeconds;
+	}
+	public String getStore_name() {
+		return store_name;
+	}
+	public void setStore_name(String store_name) {
+		this.store_name = store_name;
+	}
+	public String getGrade_id() {
+		return grade_id;
+	}
+	public void setGrade_id(String grade_id) {
+		this.grade_id = grade_id;
+	}
+	public String getGoods_serial() {
+		return goods_serial;
+	}
+	public void setGoods_serial(String goods_serial) {
+		this.goods_serial = goods_serial;
+	}
 }

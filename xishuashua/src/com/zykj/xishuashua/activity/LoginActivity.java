@@ -21,7 +21,6 @@ import com.tencent.connect.auth.QQToken;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
-import com.umeng.message.PushAgent;
 import com.zykj.xishuashua.BaseActivity;
 import com.zykj.xishuashua.BaseApp;
 import com.zykj.xishuashua.R;
@@ -49,7 +48,6 @@ public class LoginActivity extends BaseActivity{
 		setContentView(R.layout.ui_user_login);
         //device_token = UmengRegistrar.getRegistrationId(this);
 		
-		PushAgent.getInstance(this).onAppStart();
 		initView();
 	}
 

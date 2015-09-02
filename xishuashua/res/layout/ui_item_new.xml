@@ -10,7 +10,7 @@
         android:id="@+id/new_img"
         android:layout_width="@dimen/one_hundred"
         android:layout_height="@dimen/eighty"
-        android:src="@drawable/t_new_img"
+        android:src="@drawable/icon_image_default"
         android:scaleType="fitXY"
         android:contentDescription="@string/app_name"/>
     

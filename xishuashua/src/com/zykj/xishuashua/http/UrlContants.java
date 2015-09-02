@@ -8,8 +8,6 @@ public class UrlContants {
 
     public static final String BASE_URL = "http://192.168.1.141/appif/api.php?";//192.168.1.141//115.28.167.43
     
-    public static final String IAMGEURL = "http://192.168.1.141/data/upload/cms/special/"+"%s";//轮播图
-    
     public static final String ABATARURL = "http://192.168.1.141/data/upload/shop/avatar/";//头像
     
     public static final String GIFTIMGURL = "http://192.168.1.141/data/upload/shop/store/goods/2/";//红包图片
@@ -60,7 +58,7 @@ public class UrlContants {
     
     public static final String SUBMITCOMMENT = "m=user&a=submitcomment";//用户提交评论
     
-    public static final String GETCOMMENT = "m=user&a=getcomment";//用户提交评论
+    public static final String GETCOMMENT = "m=user&a=getcomment";//评论列表
     
     public static final String SOMEKINDENVELIST = "m=user&a=getsomekindenvelist";//获取红包
     
@@ -71,12 +69,5 @@ public class UrlContants {
             return BASE_URL;
         }
       return  String.format(BASEURL,token);
-    }
-    
-    public static String getImageUrl(String token){
-        if(token==null || token.equals("")){
-            return BASE_URL;
-        }
-      return  String.format(IAMGEURL,token);
     }
 }

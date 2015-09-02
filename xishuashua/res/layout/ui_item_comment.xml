@@ -2,14 +2,14 @@
 <LinearLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:descendantFocusability="blocksDescendants"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
     android:padding="@dimen/eight"
-    android:background="@drawable/devide_gray_list"
     android:orientation="horizontal" >
     
     <ImageView 
+        android:id="@+id/comment_images"
         android:layout_width="@dimen/sixty"
         android:layout_height="@dimen/sixty"
         android:src="@drawable/comment_img"
@@ -53,20 +53,32 @@
 	            android:layout_width="0.0dip"
             	android:layout_height="@dimen/eighteen"
             	android:layout_weight="1"/>
-            <com.zykj.xishuashua.view.MyCheckBox
+	        <ImageView 
+	            android:layout_width="@dimen/fifteen"
+            	android:layout_height="@dimen/fifteen"
+            	android:layout_gravity="center_vertical"
+            	android:contentDescription="@string/app_name"
+            	android:src="@drawable/comment_normal"/>
+            <TextView
                 android:id="@+id/comment_num1"
-	            app:drawable_size="15dp"
 	            android:gravity="top"
-	            style="@style/box_button"
+	            android:textColor="@color/text_light"
+	            android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
 	            android:layout_marginRight="@dimen/ten"
-                app:drawableLeft="@drawable/msg_dw_comment"
                 android:text="@string/message_number"/>
-            <com.zykj.xishuashua.view.MyCheckBox 
+	        <ImageView 
+	            android:layout_width="@dimen/fifteen"
+            	android:layout_height="@dimen/fifteen"
+            	android:layout_gravity="center_vertical"
+            	android:contentDescription="@string/app_name"
+            	android:src="@drawable/laud_normal"/>
+            <TextView 
                 android:id="@+id/comment_num2"
-	            app:drawable_size="15dp"
 	            android:gravity="top"
-	            style="@style/box_button"
-                app:drawableLeft="@drawable/msg_dw_laud"
+	            android:textColor="@color/text_light"
+	            android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
                 android:text="@string/message_number"/>
         </LinearLayout>
     </LinearLayout>

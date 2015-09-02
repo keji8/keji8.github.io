@@ -69,7 +69,6 @@ public class GiftPerpetualActivity extends BaseActivity implements OnCheckedChan
 		mHandler = new Handler();
 		mRadioParams = new RadioGroup.LayoutParams(Tools.M_SCREEN_WIDTH/6, LinearLayout.LayoutParams.MATCH_PARENT);
 		initView();
-		requestData();
 	}
 
 	/**
@@ -85,7 +84,7 @@ public class GiftPerpetualActivity extends BaseActivity implements OnCheckedChan
 		cradioGroup = (RadioGroup)findViewById(R.id.cradioGroup);//标签切换
 		cradioGroup.setOnCheckedChangeListener(this);
 		mListView = (XListView)findViewById(R.id.gift_listview);//选择标签
-        adapter = new GiftAdapter(this, R.layout.ui_item_gift, gifts, "0");
+        adapter = new GiftAdapter(this, R.layout.ui_item_gift, gifts);
         mListView.setAdapter(adapter);
 		mListView.setPullLoadEnable(true);
 		mListView.setXListViewListener(this);
@@ -107,8 +106,8 @@ public class GiftPerpetualActivity extends BaseActivity implements OnCheckedChan
     	RequestParams params = new RequestParams();
     	params.put("page", String.valueOf(page));
     	params.put("per_page", NUM);
-    	params.put("marketprice", "=0");//"!=0"即时红包, "=0"永久红包
-    	params.put("interesttag", interesttag);//兴趣标签Id
+    	params.put("marketprice", "0");//"1"即时红包, "0"永久红包
+    	params.put("interestid", interesttag == null?"1":interesttag);//兴趣标签Id
     	params.put("grade_id", grade_id);//0-个人红包  1-商家红包  app-app红包(默认)
 		MyRequestDailog.showDialog(this, "");
 		HttpUtils.getsomekindenvelist(rel_getEnveList, params);
@@ -144,7 +143,9 @@ public class GiftPerpetualActivity extends BaseActivity implements OnCheckedChan
             radioButton.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
             radioButton.setBackgroundResource(R.drawable.gift_tab_bg);
             radioButton.setChecked(i == 0?true:false);
+            if(i == 0){interesttag = list.get(i).getInterest_id();}
             cradioGroup.addView(radioButton,mRadioParams);
+    		requestData();
 		}
 	}
 	

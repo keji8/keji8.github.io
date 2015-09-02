@@ -29,6 +29,7 @@ import com.zykj.xishuashua.http.HttpUtils;
 import com.zykj.xishuashua.model.Gift;
 import com.zykj.xishuashua.model.Interest;
 import com.zykj.xishuashua.utils.CommonUtils;
+import com.zykj.xishuashua.utils.StringUtil;
 import com.zykj.xishuashua.utils.Tools;
 import com.zykj.xishuashua.view.MyRequestDailog;
 import com.zykj.xishuashua.view.SegmentView;
@@ -57,6 +58,7 @@ public class GiftForthwithActivity extends BaseActivity implements OnCheckedChan
 	private String[] interestIds;//用户爱好标签
     private RadioGroup.LayoutParams mRadioParams;//标签布局
 
+	private List<Interest> interest0 = new ArrayList<Interest>();//全部标签
 	private List<Interest> interest1 = new ArrayList<Interest>();//用户爱好标签
 	private List<Interest> interest2 = new ArrayList<Interest>();//其他标签
 	
@@ -69,7 +71,6 @@ public class GiftForthwithActivity extends BaseActivity implements OnCheckedChan
 		mHandler = new Handler();
         mRadioParams = new RadioGroup.LayoutParams(Tools.M_SCREEN_WIDTH/6, LinearLayout.LayoutParams.MATCH_PARENT);
 		initView();
-		requestData();
 	}
 
 	/**
@@ -84,11 +85,15 @@ public class GiftForthwithActivity extends BaseActivity implements OnCheckedChan
 		cradioGroup = (RadioGroup)findViewById(R.id.cradioGroup);//标签切换
 		cradioGroup.setOnCheckedChangeListener(this);
 		mListView = (XListView)findViewById(R.id.gift_listview);//选择标签
-        adapter = new GiftAdapter(this, R.layout.ui_item_gift, gifts, "0");
+		mListView.setVisibility(View.GONE);
+        adapter = new GiftAdapter(this, R.layout.ui_item_gift, gifts);
         mListView.setAdapter(adapter);
+        //即时红包倒计时
+		handler.sendEmptyMessage(1);
 		mListView.setPullLoadEnable(true);
 		mListView.setXListViewListener(this);
 		mListView.setOnItemClickListener(this);
+		MyRequestDailog.showDialog(this, "");
 		HttpUtils.getAllInterests(getAllInterests);
 		cradioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
@@ -106,10 +111,9 @@ public class GiftForthwithActivity extends BaseActivity implements OnCheckedChan
     	RequestParams params = new RequestParams();
     	params.put("page", String.valueOf(page));
     	params.put("per_page", NUM);
-    	params.put("marketprice", "!=0");//"!=0"即时红包, "=0"永久红包
-    	params.put("interesttag", interesttag);//兴趣标签Id
+    	params.put("marketprice", "1");//"1"即时红包, "0"永久红包
+    	params.put("interestid", interesttag == null?"1":interesttag);//兴趣标签Id
     	params.put("grade_id", grade_id);//0-个人红包  1-商家红包(默认)
-		MyRequestDailog.showDialog(this, "");
 		HttpUtils.getsomekindenvelist(rel_getEnveList, params);
 	}
 	
@@ -122,10 +126,15 @@ public class GiftForthwithActivity extends BaseActivity implements OnCheckedChan
 		@Override
 		public void onReadSuccess(List<Interest> list) {
 			screeningChecked(list);
-			/** 加载用户爱好兴趣 */
-			addInterests(interest1);
-			/** 加载更多兴趣 */
-			addMoreButton();
+			if(interest1.size()<5){
+				/** 加载所有兴趣标签 */
+				addInterests(interest0);
+			}else{
+				/** 加载用户爱好兴趣标签 */
+				addInterests(interest1);
+				/** 加载更多兴趣标签 */
+				addMoreButton();
+			}
 		}
 	};
 	
@@ -144,7 +153,9 @@ public class GiftForthwithActivity extends BaseActivity implements OnCheckedChan
             radioButton.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
             radioButton.setBackgroundResource(R.drawable.gift_tab_bg);
             radioButton.setChecked(i == 0?true:false);
+            if(i == 0){interesttag = list.get(i).getInterest_id();}
             cradioGroup.addView(radioButton,mRadioParams);
+    		requestData();
 		}
 	}
 	
@@ -170,6 +181,7 @@ public class GiftForthwithActivity extends BaseActivity implements OnCheckedChan
 	 * 筛选用户兴趣标签
 	 */
 	private void screeningChecked(List<Interest> list){
+		interest0 = list;
 		interest2 = list;
 		for (int i = 0; i < list.size(); i++) {
 			for (String interest_id : interestIds) {
@@ -188,6 +200,7 @@ public class GiftForthwithActivity extends BaseActivity implements OnCheckedChan
 		@Override
 		public void onReadSuccess(List<Gift> list) {
 			MyRequestDailog.closeDialog();
+			mListView.setVisibility(View.VISIBLE);
 			if(page == 1){gifts.clear();}
 			gifts.addAll(list);
 			adapter.notifyDataSetChanged();
@@ -256,4 +269,32 @@ public class GiftForthwithActivity extends BaseActivity implements OnCheckedChan
 			onLoad();
 		}
 	}
+	
+	private Handler handler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 1:
+				//①：其实在这块需要精确计算当前时间
+				for(int index =0;index<gifts.size();index++){
+					Gift gift = gifts.get(index);
+					if(gift.getCurrentSeconds() == null){
+						long continueTime = Long.parseLong(StringUtil.toString(gift.getGoods_marketprice(), "0"));
+						long startTime = Long.parseLong(StringUtil.toString(gift.getGoods_selltime(), "0"));
+						long seconds = startTime + continueTime - System.currentTimeMillis()/1000;
+						gift.setCurrentSeconds(String.valueOf(seconds));
+					}
+					long time = Long.parseLong(gift.getCurrentSeconds());
+					if(time>1){//判断是否还有条目能够倒计时，如果能够倒计时的话，延迟一秒，让它接着倒计时
+						gift.setCurrentSeconds(String.valueOf(time-1));
+					}else{
+						gift.setCurrentSeconds("0");
+					}
+				}
+				//②：for循环执行的时间
+				adapter.notifyDataSetChanged();
+				handler.sendEmptyMessageDelayed(1, 1000);
+				break;
+			}
+		}
+	};
 }

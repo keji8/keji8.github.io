@@ -7,13 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.loopj.android.http.RequestParams;
-import com.umeng.message.PushAgent;
 import com.zykj.xishuashua.BaseActivity;
 import com.zykj.xishuashua.BaseApp;
 import com.zykj.xishuashua.R;
@@ -24,7 +25,6 @@ import com.zykj.xishuashua.utils.Tools;
 
 public class Welcome extends BaseActivity {
 	
-    private PushAgent mPushAgent;
 	private LocationClient mLocationClient;
 	private MyLocationListener mLocationListener;
 	
@@ -35,10 +35,7 @@ public class Welcome extends BaseActivity {
         SDKInitializer.initialize(getApplicationContext());
 		initView(R.layout.ui_welcome);
 		
-		mPushAgent = PushAgent.getInstance(this);
-		mPushAgent.enable();
-		
-		PushAgent.getInstance(this).onAppStart();
+		PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY,"ybkkYz0vHYgGdfcpPnvcTSL0");
 		initLocation();
 		
 		Timer timer = new Timer();

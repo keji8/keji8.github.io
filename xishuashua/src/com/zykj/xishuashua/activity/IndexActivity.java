@@ -1,5 +1,6 @@
 package com.zykj.xishuashua.activity;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,7 @@ import com.zykj.xishuashua.http.HttpUtils;
 import com.zykj.xishuashua.http.UrlContants;
 import com.zykj.xishuashua.model.Gift;
 import com.zykj.xishuashua.utils.CommonUtils;
+import com.zykj.xishuashua.utils.DateUtil;
 import com.zykj.xishuashua.utils.Tools;
 import com.zykj.xishuashua.view.AutoListView;
 import com.zykj.xishuashua.view.MyCommonTitle;
@@ -161,9 +163,14 @@ public class IndexActivity extends BaseActivity implements OnItemClickListener{
 				@Override
 				public void convert(ViewHolder holder, Gift newinfo) {
 					if(holder.getPosition()<5){
-						holder.setImageUrl(R.id.new_img, UrlContants.GIFTIMGURL+newinfo.getGoods_image(), 10f)
-							.setText(R.id.new_title, newinfo.getGoods_name())
+						try {
+							String date = DateUtil.longToString(Long.valueOf(newinfo.getGoods_selltime()), "yyyy-MM-DD");
+							holder.setImageUrl(R.id.new_img, UrlContants.GIFTIMGURL+newinfo.getGoods_image(), 10f)
+							.setText(R.id.new_title, newinfo.getGoods_name()).setText(R.id.new_createtime, date)
 							.setText(R.id.new_content, newinfo.getGoods_jingle().length()>50?newinfo.getGoods_jingle().substring(0,50):newinfo.getGoods_jingle());
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			});
@@ -207,7 +214,7 @@ public class IndexActivity extends BaseActivity implements OnItemClickListener{
 		case R.id.aci_shared_btn:
 			/*App分享*/
 			CommonUtils.showShare(this, getString(R.string.app_name), "喜刷刷是一款可以边看新闻边抢红包的App", 
-					"http://dashboard.mob.com/Uploads/1b692f6c9fceaf93c407afd889c36090.png", "http://fir.im");
+					"http://dashboard.mob.com/Uploads/1b692f6c9fceaf93c407afd889c36090.png", "");
 			break;
 		case R.id.index_image1:
 			/*即时红包*/
@@ -250,11 +257,11 @@ public class IndexActivity extends BaseActivity implements OnItemClickListener{
 				}
 				interestIds = interestIds.length()>0?interestIds.substring(0,interestIds.length()-1):"";
 				if(viewId == R.id.index_image3){
-					startActivity(new Intent(IndexActivity.this, UserLableActivity.class).putExtra("interestIds", interestIds));
+					startActivity(new Intent(IndexActivity.this, UserLableActivity.class).putExtra("interestIds", interestIds));//兴趣标签
 				}else if(viewId == R.id.index_image2){
-					startActivity(new Intent(IndexActivity.this, GiftPerpetualActivity.class).putExtra("interestIds", interestIds));
+					startActivity(new Intent(IndexActivity.this, GiftPerpetualActivity.class).putExtra("interestIds", interestIds));//永久红包
 				}else{
-					startActivity(new Intent(IndexActivity.this, GiftForthwithActivity.class).putExtra("interestIds", interestIds));
+					startActivity(new Intent(IndexActivity.this, GiftForthwithActivity.class).putExtra("interestIds", interestIds));//即时红包
 				}
 			}
 		});

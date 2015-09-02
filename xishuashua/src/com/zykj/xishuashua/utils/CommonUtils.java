@@ -78,13 +78,6 @@ public class CommonUtils {
 		return !StringUtil.isEmpty(BaseApp.getModel().getUserid());
 	}
 	
-	public static void showPic(String name,ImageView imageview){
-		if(!StringUtil.isEmpty(name)){
-			String imgurl = UrlContants.getImageUrl(name);
-			ImageLoader.getInstance().displayImage(imgurl, imageview);
-		}
-	}
-	
 	public static void showShare(Context context, String title, String content, String ImageUrl, String downloadUrl){
 		ShareSDK.initSDK(context);
 		OnekeyShare oks = new OnekeyShare();
@@ -95,7 +88,7 @@ public class CommonUtils {
 		// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
 		oks.setTitle(title);//喜刷刷
 		// titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-		//oks.setTitleUrl("http://fir.im");
+		oks.setTitleUrl("http://fir.im");
 		// text是分享文本，所有平台都需要这个字段
 		oks.setText(content);//"我从发布者名称那里获得商家红包7.00元"
 		// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
@@ -111,6 +104,27 @@ public class CommonUtils {
 		//oks.setSiteUrl("http://fir.im");
 		// 启动分享GUI
 		oks.show(context);
+	}
+	
+	//抢红包退出
+	public static void exitGift(int keyCode, Context context) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {//返回按钮
+			AlertDialog.Builder builder = new AlertDialog.Builder(context);
+			builder.setTitle("提示")
+					.setMessage("请稍后退出!")
+					.setNegativeButton("确定", new OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					})
+					.setOnCancelListener(
+							new DialogInterface.OnCancelListener() {
+								public void onCancel(DialogInterface dialog) {
+									dialog.dismiss();
+								}
+
+							}).show();
+		}
 	}
 	
 	//退出操作
