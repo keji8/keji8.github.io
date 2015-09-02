@@ -32,6 +32,7 @@ import com.zykj.xishuashua.http.HttpErrorHandler;
 import com.zykj.xishuashua.http.HttpUtils;
 import com.zykj.xishuashua.http.UrlContants;
 import com.zykj.xishuashua.model.Comment;
+import com.zykj.xishuashua.utils.CommonUtils;
 import com.zykj.xishuashua.utils.Tools;
 import com.zykj.xishuashua.view.MyCheckBox;
 import com.zykj.xishuashua.view.MyCommonTitle;
@@ -198,6 +199,8 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 		switch (view.getId()) {
 		case R.id.aci_shared_btn:
 			//分享
+			CommonUtils.showShare(this, getString(R.string.app_name), "我从"+good.getString("goods_name")+"那里获得了"+good.getString("goods_price")+"元的红包", 
+					"http://dashboard.mob.com/Uploads/1b692f6c9fceaf93c407afd889c36090.png", "");
 			break;
 		case R.id.layout_laud:
 			clickfavorite();//点赞
