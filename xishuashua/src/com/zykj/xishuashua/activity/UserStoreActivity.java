@@ -114,7 +114,8 @@ public class UserStoreActivity extends BaseActivity implements IXListViewListene
 		if("news".equals(gift.getStore_name())){
 			startActivity(new Intent(UserStoreActivity.this, IndexNewDetailActivity.class).putExtra("newId", gift.getGoods_id()));
 		}else{
-			startActivity(new Intent(UserStoreActivity.this, GiftDetailActivity.class).putExtra("goods_id", gift.getGoods_id()));
+			startActivity(new Intent(UserStoreActivity.this, GiftDetailActivity.class)
+				.putExtra("goods_id", gift.getGoods_id()).putExtra("saw", gift.getSaw()));
 		}
 	}
 

@@ -12,6 +12,7 @@ public class Interest implements Serializable{
 	private String interest_id;//标签Id
 	private String interest_name;//标签名称
 	private String interest_content;//标签内容
+	private String count;
 	
 	private boolean isChecked;//是否选中
 
@@ -45,6 +46,14 @@ public class Interest implements Serializable{
 
 	public void setChecked(boolean isChecked) {
 		this.isChecked = isChecked;
+	}
+
+	public String getCount() {
+		return count;
+	}
+
+	public void setCount(String count) {
+		this.count = count;
 	}
 	
 }

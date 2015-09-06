@@ -4,32 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Gravity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zykj.xishuashua.BaseActivity;
 import com.zykj.xishuashua.R;
+import com.zykj.xishuashua.adapter.CommonAdapter;
 import com.zykj.xishuashua.adapter.GiftAdapter;
+import com.zykj.xishuashua.adapter.ViewHolder;
 import com.zykj.xishuashua.http.EntityHandler;
 import com.zykj.xishuashua.http.HttpUtils;
 import com.zykj.xishuashua.model.Gift;
 import com.zykj.xishuashua.model.Interest;
 import com.zykj.xishuashua.utils.CommonUtils;
+import com.zykj.xishuashua.utils.StringUtil;
 import com.zykj.xishuashua.utils.Tools;
+import com.zykj.xishuashua.view.HorizontalListView;
 import com.zykj.xishuashua.view.MyRequestDailog;
 import com.zykj.xishuashua.view.SegmentThreeView;
 import com.zykj.xishuashua.view.SegmentThreeView.onSegmentViewClickListener;
@@ -40,10 +36,9 @@ import com.zykj.xishuashua.view.XListView.IXListViewListener;
  * @author Administrator
  * 首页永久红包
  */
-public class GiftPerpetualActivity extends BaseActivity implements OnCheckedChangeListener
-,IXListViewListener,OnItemClickListener,onSegmentViewClickListener{
+public class GiftPerpetualActivity extends BaseActivity implements IXListViewListener,OnItemClickListener,onSegmentViewClickListener{
 
-	private RadioGroup cradioGroup;//兴趣标签
+	private HorizontalListView gift_hlistview;
 	private XListView mListView;//红包列表
 	private SegmentThreeView order_seg;//App、商家、者个人
 	
@@ -53,10 +48,11 @@ public class GiftPerpetualActivity extends BaseActivity implements OnCheckedChan
 	private String interesttag;//兴趣标签
 	private List<Gift> gifts = new ArrayList<Gift>();//红包数据
 	private GiftAdapter adapter;//设配器
+	private CommonAdapter<Interest> iAdapter;
 	private Handler mHandler;//异步加载或刷新
 	private String[] interestIds;//用户爱好标签
-    private RadioGroup.LayoutParams mRadioParams;//标签布局
 
+	private List<Interest> interest0 = new ArrayList<Interest>();//全部标签
 	private List<Interest> interest1 = new ArrayList<Interest>();//用户爱好标签
 	private List<Interest> interest2 = new ArrayList<Interest>();//其他标签
 	
@@ -67,7 +63,6 @@ public class GiftPerpetualActivity extends BaseActivity implements OnCheckedChan
 		interestIds = getIntent().getStringExtra("interestIds").split(",");
 		
 		mHandler = new Handler();
-		mRadioParams = new RadioGroup.LayoutParams(Tools.M_SCREEN_WIDTH/6, LinearLayout.LayoutParams.MATCH_PARENT);
 		initView();
 	}
 
@@ -81,8 +76,8 @@ public class GiftPerpetualActivity extends BaseActivity implements OnCheckedChan
 		order_seg.setSegmentText("商家红包", 1);
 		order_seg.setSegmentText("个人红包", 2);
 		order_seg.setOnSegmentViewClickListener(this);
-		cradioGroup = (RadioGroup)findViewById(R.id.cradioGroup);//标签切换
-		cradioGroup.setOnCheckedChangeListener(this);
+		
+		gift_hlistview = (HorizontalListView)findViewById(R.id.gift_hlistview);//标签切换
 		mListView = (XListView)findViewById(R.id.gift_listview);//选择标签
         adapter = new GiftAdapter(this, R.layout.ui_item_gift, gifts);
         mListView.setAdapter(adapter);
@@ -90,11 +85,32 @@ public class GiftPerpetualActivity extends BaseActivity implements OnCheckedChan
 		mListView.setXListViewListener(this);
 		mListView.setOnItemClickListener(this);
 		HttpUtils.getAllInterests(getAllInterests);
-		cradioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		iAdapter = new CommonAdapter<Interest>(this, R.layout.ui_item_hlabel, interest1) {
 			@Override
-			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				interesttag = checkedId+"";
-				requestData();
+			public void convert(ViewHolder holder, Interest interest) {
+				holder.setText(R.id.interest_num, StringUtil.toString(interest.getCount(), "0"));
+				TextView button = holder.getView(R.id.interest_name);
+				button.setText(interest.getInterest_name());
+				button.setSelected(interest.isChecked());
+			}
+		};
+		gift_hlistview.setAdapter(iAdapter);
+		gift_hlistview.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View convertView, int position, long checkId) {
+				if(interest1.size() < interest0.size() && position == interest1.size()-1){
+					interest1.remove(position);
+					interest1.addAll(interest2);
+					iAdapter.notifyDataSetChanged();
+				}else{
+					for (int i = 0; i < interest1.size(); i++) {
+						interest1.get(i).setChecked(false);
+					}
+					interest1.get(position).setChecked(true);
+					iAdapter.notifyDataSetChanged();
+					interesttag = interest1.get(position).getInterest_id();
+					requestData();
+				}
 			}
 		});
 	}
@@ -120,57 +136,33 @@ public class GiftPerpetualActivity extends BaseActivity implements OnCheckedChan
 	private AsyncHttpResponseHandler getAllInterests = new EntityHandler<Interest>(Interest.class) {
 		@Override
 		public void onReadSuccess(List<Interest> list) {
+			requestData();
 			screeningChecked(list);
-			/** 加载用户爱好兴趣 */
-			addInterests(interest1);
-			/** 加载更多兴趣 */
-			addMoreButton();
+			if(interest1.size()<5){
+				/** 加载所有兴趣标签 */
+				interest1.addAll(interest0);
+				interest1.get(0).setChecked(true);
+				iAdapter.notifyDataSetChanged();
+			}else{
+				/** 加载用户爱好兴趣标签 */
+				Interest interest = new Interest();
+				interest.setInterest_name("更多");
+				interest1.add(interest);
+				interest1.get(0).setChecked(true);
+				iAdapter.notifyDataSetChanged();
+			}
 		}
 	};
-	
-	/**
-	 * 加载便签列表
-	 * @param list 标签列表
-	 */
-	private void addInterests(List<Interest> list){
-		for (int i = 0; i < list.size() ; i++) {
-            RadioButton radioButton = new RadioButton(GiftPerpetualActivity.this);
-            radioButton.setId(Integer.valueOf(list.get(i).getInterest_id()));
-            radioButton.setText(list.get(i).getInterest_name());
-            radioButton.setTextSize(18f);
-            radioButton.setGravity(Gravity.CENTER);
-            radioButton.setTextColor(getResources().getColorStateList(R.drawable.tab_font_color));
-            radioButton.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
-            radioButton.setBackgroundResource(R.drawable.gift_tab_bg);
-            radioButton.setChecked(i == 0?true:false);
-            if(i == 0){interesttag = list.get(i).getInterest_id();}
-            cradioGroup.addView(radioButton,mRadioParams);
-    		requestData();
-		}
-	}
-	
-	/** 加载其他更多兴趣标签 */
-	private void addMoreButton(){
-		final TextView textview = new TextView(GiftPerpetualActivity.this);
-		textview.setText("更多");
-		textview.setTextSize(18f);
-		textview.setGravity(Gravity.CENTER);//居中显示
-		textview.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				/** 点击更多加载 */
-				cradioGroup.removeView(textview);
-				addInterests(interest2);
-			}
-		});
-        cradioGroup.addView(textview,mRadioParams);
-	}
 	
 	/**
 	 * @param list 总标签
 	 * 筛选用户兴趣标签
 	 */
 	private void screeningChecked(List<Interest> list){
+		interest0.clear();
+		interest1.clear();
+		interest2.clear();
+		interest0 = list;
 		interest2 = list;
 		for (int i = 0; i < list.size(); i++) {
 			for (String interest_id : interestIds) {
@@ -201,14 +193,10 @@ public class GiftPerpetualActivity extends BaseActivity implements OnCheckedChan
 	}
 
 	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) {
-	}
-
-	@Override
 	public void onItemClick(AdapterView<?> parent, View convertView, int position, long selectId) {
 		if(!CommonUtils.CheckLogin()){ Tools.toast(this, "请先登录"); return; }
 		Intent detailIntent = new Intent(this, GiftDetailActivity.class);
-		detailIntent.putExtra("goods_id", gifts.get(position-1).getGoods_id());
+		detailIntent.putExtra("goods_id", gifts.get(position-1).getGoods_id()).putExtra("saw", gifts.get(position-1).getSaw());;
 		startActivity(detailIntent);
 	}
 
@@ -243,22 +231,31 @@ public class GiftPerpetualActivity extends BaseActivity implements OnCheckedChan
 	}
 
 	@Override
-	public void onSegmentViewClick(View convertView, int position) {
-		if(position == 0){
-			page = 1;
-			grade_id = "app";
-			requestData();
-			onLoad();
-		}else if(position == 1){
-			page = 1;
-			grade_id = "1";
-			requestData();
-			onLoad();
-		}else{
-			page = 1;
-			grade_id = "2";
-			requestData();
-			onLoad();
-		}
+	public void onSegmentViewClick(View convertView, final int position) {
+		gift_hlistview.setSelection(0);
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				if(position == 0){
+					page = 1;
+					grade_id = "app";
+					HttpUtils.getAllInterests(getAllInterests);
+					requestData();
+					onLoad();
+				}else if(position == 1){
+					page = 1;
+					grade_id = "1";
+					HttpUtils.getAllInterests(getAllInterests);
+					requestData();
+					onLoad();
+				}else{
+					page = 1;
+					grade_id = "2";
+					HttpUtils.getAllInterests(getAllInterests);
+					requestData();
+					onLoad();
+				}
+			}
+		}, 100);
 	}
 }

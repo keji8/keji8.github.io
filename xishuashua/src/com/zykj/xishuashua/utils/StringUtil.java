@@ -168,7 +168,7 @@ public class StringUtil {
      * @return String
      */
     public static String toString(Object obj, String nullStr) {
-        return obj == null ? nullStr : obj.toString();
+        return obj == null ? nullStr : "".equals(obj) ? nullStr : obj.toString();
     }
  
     /**

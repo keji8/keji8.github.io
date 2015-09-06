@@ -52,7 +52,7 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 	private int page = 1;
 	
 	private MyCommonTitle myCommonTitle;
-	private String goods_id;
+	private String goods_id,saw;
 	private TextView gift_message,message_title,msg_content;
 	private CheckBox msg_dw_laud,msg_dw_star,msg_dw_comment,msg_dw_share,bottom_comment;
 	private boolean check_laud,check_star;
@@ -76,6 +76,7 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ui_gift_detail);
 		goods_id = getIntent().getStringExtra("goods_id");//红包Id
+		saw = getIntent().getStringExtra("saw");//红包Id
 		
 		initView();
 		requestData();
@@ -166,16 +167,20 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 			long continueTime = Long.parseLong(StringUtil.toString(good.getString("goods_marketprice"), "0"));
 			long startTime = Long.parseLong(StringUtil.toString(good.getString("goods_selltime"), "0"));
 			long seconds = startTime + continueTime - System.currentTimeMillis()/1000;
-			if(continueTime == 0 && !"news".equals(good.getString("store_name"))){
-				timer = new TimeCount(15000, 1000);//构造CountDownTimer对象
-				timer.start();
-			}
-			if(continueTime>0 && !"news".equals(good.getString("store_name"))){
-				if(seconds>1){
+			if("1".equals(saw)){
+				gift_message.setText("红包已抢过，分享可得2元！");
+			}else{
+				if(continueTime == 0 && !"news".equals(good.getString("store_name"))){
 					timer = new TimeCount(15000, 1000);//构造CountDownTimer对象
 					timer.start();
-				}else{
-					gift_message.setText("红包已过期，分享可得2元！");
+				}
+				if(continueTime>0 && !"news".equals(good.getString("store_name"))){
+					if(seconds>1){
+						timer = new TimeCount(15000, 1000);//构造CountDownTimer对象
+						timer.start();
+					}else{
+						gift_message.setText("红包已过期，分享可得2元！");
+					}
 				}
 			}
 			message_title.setText(good.getString("goods_name"));
@@ -218,9 +223,13 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 			long continueTime = Long.parseLong(StringUtil.toString(good.getString("goods_marketprice"), "0"));
 			long startTime = Long.parseLong(StringUtil.toString(good.getString("goods_selltime"), "0"));
 			long seconds = startTime + continueTime - System.currentTimeMillis()/1000;
-			if(continueTime>0 && !"news".equals(good.getString("store_name"))){
-				if(seconds<1){
-					flag = true;
+			if("1".equals(saw)){
+				flag = true;
+			}else{
+				if(continueTime>0 && !"news".equals(good.getString("store_name"))){
+					if(seconds<1){
+						flag = true;
+					}
 				}
 			}
 			if(!flag){
@@ -270,7 +279,7 @@ public class GiftDetailActivity extends BaseActivity implements IXListViewListen
 	@Override
 	protected void onPause() {
 		super.onPause();
-		gift_message.setText("红包获取失败!");
+		//gift_message.setText("红包获取失败!");
 		flag = true;
 		if(timer != null)
 			timer.cancel();

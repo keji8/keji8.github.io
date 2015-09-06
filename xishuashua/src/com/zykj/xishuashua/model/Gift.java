@@ -31,6 +31,7 @@ public class Gift implements Serializable{
 	private String store_name;//为"news"就是新闻资讯
 	private String grade_id;//0个人、商家、app
 	private String goods_serial;//兴趣标签
+	private String saw;
 	
 	public String getGoods_id() {
 		return goods_id;
@@ -157,5 +158,11 @@ public class Gift implements Serializable{
 	}
 	public void setGoods_serial(String goods_serial) {
 		this.goods_serial = goods_serial;
+	}
+	public String getSaw() {
+		return saw;
+	}
+	public void setSaw(String saw) {
+		this.saw = saw;
 	}
 }
