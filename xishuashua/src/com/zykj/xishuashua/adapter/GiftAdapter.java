@@ -32,7 +32,7 @@ public class GiftAdapter extends CommonAdapter<Gift> {
 				.setText(R.id.gift_content, gift.getGoods_jingle())
 				.setText(R.id.gift_btn, "1".equals(status)?"抢红包"+gift.getGoods_price()+"元":continueTime>1?"抢红包"+gift.getGoods_price()+"元":"已过期")
 				.setText(R.id.gift_date1, sellTime+"发布").setText(R.id.gift_date2, sellTime+"发布")
-				.setText(R.id.gift_type, "0".equals(gift.getGrade_id())?"个人红包":"1".equals(gift.getGrade_id())?"商家红包":"app红包")
+				.setText(R.id.gift_type, "2".equals(gift.getGrade_id())?"个人红包":"1".equals(gift.getGrade_id())?"商家红包":"app红包")
 				.setText(R.id.gift_label, gift.getGoods_serial())
 				.setVisibility(R.id.gift_type, !"2".equals(status))
 				.setVisibility(R.id.gift_date1, "1".equals(status))

@@ -19,6 +19,7 @@ public class AppModel {
     private String number;//红包个数
     private String latitude;//经度
     private String longitude;//纬度
+    private String channelid;//纬度
 
     private static SharedPreferenceUtils utils;
     
@@ -60,6 +61,10 @@ public class AppModel {
 
         if(utils.getLongitude() != null){
             model.longitude= utils.getLongitude();
+        }
+
+        if(utils.getChannelid() != null){
+            model.channelid= utils.getChannelid();
         }
 
         return model;
@@ -125,6 +130,12 @@ public class AppModel {
 	}
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+	}
+	public String getChannelid() {
+		return channelid;
+	}
+	public void setChannelid(String channelid) {
+		this.channelid = channelid;
 	}
 	public void clear(){
 		this.setUsername("");

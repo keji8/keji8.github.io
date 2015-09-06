@@ -28,7 +28,7 @@ public class UserRecordActivity extends BaseActivity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ui_user_list);
+		setContentView(R.layout.ui_index_list);
 		envelist = getIntent().getParcelableArrayListExtra("envelist");
 		
 		initView();
@@ -42,7 +42,7 @@ public class UserRecordActivity extends BaseActivity{
 		myCommonTitle = (MyCommonTitle)findViewById(R.id.aci_mytitle);
 		myCommonTitle.setTitle("收益记录");
 		
-		myListView = (ListView)findViewById(R.id.store_mylistview);
+		myListView = (ListView)findViewById(R.id.advert_listview);
 	}
 
     /**

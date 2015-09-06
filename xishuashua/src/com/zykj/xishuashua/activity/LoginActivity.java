@@ -248,9 +248,13 @@ public class LoginActivity extends BaseActivity{
 		}
 	};
 	
-	private void submitDeviceToken(String userid, String member_id){
-		//Tools.toast(this, device_token);
-		setResult(Activity.RESULT_OK, getIntent().putExtra("member_id", member_id));
-		finish();
+	private void submitDeviceToken(String userid, final String member_id){
+		HttpUtils.getchannelid(new HttpErrorHandler() {
+			@Override
+			public void onRecevieSuccess(JSONObject json) {
+				setResult(Activity.RESULT_OK, getIntent().putExtra("member_id", member_id));
+				finish();
+			}
+		}, BaseApp.getModel().getChannelid());
 	}
 }

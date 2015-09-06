@@ -23,6 +23,7 @@ public class SharedPreferenceUtils {
     private static final String NUMBER="number";
     private static final String LATITUDE="latitude";
     private static final String LONGITUDE="longitude";
+    private static final String CNANNELID="channelid";
 	
     private SharedPreferenceUtils(Context context){
         mSharedPreference=context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -72,6 +73,10 @@ public class SharedPreferenceUtils {
 		return mSharedPreference.getString(LONGITUDE, null);
 	}
 
+	public String getChannelid() {
+		return mSharedPreference.getString(CNANNELID, null);
+	}
+
     public void setUserid(String userid){
         mEditor.putString(USERID, userid);
         mEditor.commit();
@@ -114,6 +119,11 @@ public class SharedPreferenceUtils {
 
     public void setLongitude(String longitude){
         mEditor.putString(LONGITUDE,longitude);
+        mEditor.commit();
+    }
+
+    public void setChannelid(String channelid){
+        mEditor.putString(CNANNELID,channelid);
         mEditor.commit();
     }
     

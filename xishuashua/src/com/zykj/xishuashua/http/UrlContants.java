@@ -6,11 +6,11 @@ package com.zykj.xishuashua.http;
  */
 public class UrlContants {
 
-    public static final String BASE_URL = "http://192.168.1.141/appif/api.php?";//192.168.1.141//115.28.167.43
+    public static final String BASE_URL = "http://192.168.1.162/appif/api.php?";//192.168.1.162//115.28.167.43
     
-    public static final String ABATARURL = "http://192.168.1.141/data/upload/shop/avatar/";//头像
+    public static final String ABATARURL = "http://192.168.1.162/data/upload/shop/avatar/";//头像
     
-    public static final String GIFTIMGURL = "http://192.168.1.141/data/upload/shop/store/goods/2/";//红包图片
+    public static final String GIFTIMGURL = "http://192.168.1.162/data/upload/shop/store/goods/2/";//红包图片
 
     public static final String BASEURL = BASE_URL+"%s";
 
@@ -63,6 +63,8 @@ public class UrlContants {
     public static final String SOMEKINDENVELIST = "m=user&a=getsomekindenvelist";//获取红包
     
     public static final String GETENVEPOINTS = "m=user&a=getenvePoints";//抢红包
+    
+    public static final String GETCHANNELID = "m=user&a=getchannelid";//上传设备Id
     
     public static String getUrl(String token){
         if(token==null || token.equals("")){

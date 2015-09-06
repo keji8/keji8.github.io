@@ -6,6 +6,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.baidu.android.pushservice.PushMessageReceiver;
+import com.zykj.xishuashua.BaseApp;
 
 /*
  * Push消息处理receiver。请编写您需要的回调函数， 一般来说： onBind是必须的，用来处理startWork返回值；
@@ -61,6 +62,7 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
         String responseString = "onBind errorCode=" + errorCode + " appid="
                 + appid + " userId=" + userId + " channelId=" + channelId
                 + " requestId=" + requestId;
+        BaseApp.getModel().setChannelid(channelId);
         Log.d(TAG, responseString);
     }
 

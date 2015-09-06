@@ -3,10 +3,14 @@ package com.zykj.xishuashua.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.ListView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
+import com.loopj.android.http.RequestParams;
 import com.zykj.xishuashua.BaseActivity;
 import com.zykj.xishuashua.R;
 import com.zykj.xishuashua.adapter.GiftAdapter;
@@ -16,18 +20,24 @@ import com.zykj.xishuashua.model.Gift;
 import com.zykj.xishuashua.utils.StringUtil;
 import com.zykj.xishuashua.view.MyCommonTitle;
 import com.zykj.xishuashua.view.MyRequestDailog;
+import com.zykj.xishuashua.view.XListView;
+import com.zykj.xishuashua.view.XListView.IXListViewListener;
 
-public class UserStoreActivity extends BaseActivity{
+public class UserStoreActivity extends BaseActivity implements IXListViewListener,OnItemClickListener{
+
+	private static final String NUM = "5";//每页显示条数
+	private int page = 1;//////////////////////////////////////////////////////////////////
+	private Handler mHandler = new Handler();
 	
 	private MyCommonTitle myCommonTitle;
-    private ListView myListView;
+    private XListView myListView;
 	private GiftAdapter adapter;
 	private List<Gift> gifts = new ArrayList<Gift>();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ui_user_list);
+		setContentView(R.layout.ui_index_news);
 		
 		initView();
 		requestData();
@@ -40,9 +50,13 @@ public class UserStoreActivity extends BaseActivity{
 		myCommonTitle = (MyCommonTitle)findViewById(R.id.aci_mytitle);
 		myCommonTitle.setTitle("我的收藏");
 		
-		myListView = (ListView)findViewById(R.id.store_mylistview);
+		myListView = (XListView)findViewById(R.id.advert_listview);
 		adapter = new GiftAdapter(UserStoreActivity.this, R.layout.ui_item_gift, gifts);
 		myListView.setAdapter(adapter);
+		myListView.setDividerHeight(0);
+		myListView.setPullLoadEnable(true);
+		myListView.setXListViewListener(this);
+		myListView.setOnItemClickListener(this);
 
 		handler.sendEmptyMessage(1);
 	}
@@ -52,14 +66,18 @@ public class UserStoreActivity extends BaseActivity{
      */
     public void requestData() {
 		MyRequestDailog.showDialog(this, "");
+		RequestParams params = new RequestParams();
+		params.put("page", page);//当前第几页
+		params.put("per_page", NUM);//每页条数
 		HttpUtils.getmembercollect(new EntityHandler<Gift>(Gift.class) {
 			@Override
 			public void onReadSuccess(List<Gift> list) {
 				MyRequestDailog.closeDialog();
+				if(page == 1){gifts.clear();}
 				gifts.addAll(list);
 				adapter.notifyDataSetChanged();
 			}
-		});
+		}, params);
     }
 	
 	private Handler handler = new Handler(){
@@ -89,4 +107,44 @@ public class UserStoreActivity extends BaseActivity{
 			}
 		}
 	};
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View convertView, int position, long checkedId) {
+		Gift gift = gifts.get(position-1);
+		if("news".equals(gift.getStore_name())){
+			startActivity(new Intent(UserStoreActivity.this, IndexNewDetailActivity.class).putExtra("newId", gift.getGoods_id()));
+		}else{
+			startActivity(new Intent(UserStoreActivity.this, GiftDetailActivity.class).putExtra("goods_id", gift.getGoods_id()));
+		}
+	}
+
+	@Override
+	public void onRefresh() {
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				page = 1;
+				requestData();
+				onLoad();
+			}
+		}, 1000);
+	}
+
+	@Override
+	public void onLoadMore() {
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				page += 1;
+				requestData();
+				onLoad();
+			}
+		}, 1000);
+	}
+
+	private void onLoad() {
+		myListView.stopRefresh();
+		myListView.stopLoadMore();
+		myListView.setRefreshTime("刚刚");
+	}
 }

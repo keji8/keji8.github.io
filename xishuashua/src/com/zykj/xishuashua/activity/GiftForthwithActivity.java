@@ -50,7 +50,7 @@ public class GiftForthwithActivity extends BaseActivity implements OnCheckedChan
 	
 	private static final String NUM = "2";//每页显示条数
 	private int page = 1;//当前第几页
-	private int grade_id = 1;//0-个人红包  1-商家红包  app-app红包
+	private int grade_id = 1;//2-个人红包  1-商家红包  app-app红包
 	private String interesttag;//兴趣标签
 	private List<Gift> gifts = new ArrayList<Gift>();//红包数据
 	private GiftAdapter adapter;//设配器
@@ -113,7 +113,7 @@ public class GiftForthwithActivity extends BaseActivity implements OnCheckedChan
     	params.put("per_page", NUM);
     	params.put("marketprice", "1");//"1"即时红包, "0"永久红包
     	params.put("interestid", interesttag == null?"1":interesttag);//兴趣标签Id
-    	params.put("grade_id", grade_id);//0-个人红包  1-商家红包(默认)
+    	params.put("grade_id", grade_id);//2-个人红包  1-商家红包(默认)
 		HttpUtils.getsomekindenvelist(rel_getEnveList, params);
 	}
 	
@@ -264,7 +264,7 @@ public class GiftForthwithActivity extends BaseActivity implements OnCheckedChan
 			onLoad();
 		}else{
 			page = 1;
-			grade_id = 0;//个人红包
+			grade_id = 2;//个人红包
 			requestData();
 			onLoad();
 		}

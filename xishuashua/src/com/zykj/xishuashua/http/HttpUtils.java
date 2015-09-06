@@ -90,8 +90,8 @@ public class HttpUtils {
     }
 
     /*我的收藏*/
-    public static void getmembercollect(AsyncHttpResponseHandler handler){
-        client.post(UrlContants.getUrl(UrlContants.GETMEMBERCOLLECT), handler);
+    public static void getmembercollect(AsyncHttpResponseHandler handler, RequestParams params){
+        client.post(UrlContants.getUrl(UrlContants.GETMEMBERCOLLECT), params, handler);
     }
 
     /*兴趣标签列表*/
@@ -139,4 +139,8 @@ public class HttpUtils {
         client.post(UrlContants.getUrl(UrlContants.GETENVEPOINTS), params, handler);
     }
     
+    /*上传设备channel_id*/
+    public static void getchannelid(AsyncHttpResponseHandler handler, String channel_id){
+        client.get(UrlContants.getUrl(UrlContants.GETCHANNELID)+"&channel_id="+channel_id, handler);
+    }
 }
