@@ -22,6 +22,8 @@
     <string name="tab_index">首页</string>
     <string name="tab_restaurant">红包通知</string>
     <string name="tab_seting">我的</string>
+    <string name="pay_zhifubao">支付宝提现</string>
+    <string name="pay_phone">手机充值</string>
     
     <!-- 首页 -->
     <string name="index_news">新闻资讯</string>
@@ -39,6 +41,7 @@
     <string name="gift_label">标签</string>
     <string name="gift_date">2015-06-20发布</string>
     <string name="gift_btn">抢红包0.06元</string>
+    <string name="gift_delete">删除</string>
     
     <!-- 红包 -->
     <string name="user_mobile">183****5566</string>

@@ -1,5 +1,6 @@
 package com.zykj.xishuashua.activity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import com.zykj.xishuashua.http.EntityHandler;
 import com.zykj.xishuashua.http.HttpUtils;
 import com.zykj.xishuashua.http.UrlContants;
 import com.zykj.xishuashua.model.Gift;
+import com.zykj.xishuashua.utils.DateUtil;
 import com.zykj.xishuashua.view.MyCommonTitle;
 import com.zykj.xishuashua.view.XListView;
 import com.zykj.xishuashua.view.XListView.IXListViewListener;
@@ -60,9 +62,16 @@ public class IndexNewsActivity extends BaseActivity implements IXListViewListene
 		newAdapter = new CommonAdapter<Gift>(this, R.layout.ui_item_new, news) {
 			@Override
 			public void convert(ViewHolder holder, Gift newinfo) {
-				holder.setImageUrl(R.id.new_img, UrlContants.GIFTIMGURL+newinfo.getGoods_image(), 10f)
-						.setText(R.id.new_title, newinfo.getGoods_name())
-						.setText(R.id.new_content, newinfo.getGoods_jingle().length()>50?newinfo.getGoods_jingle().substring(0,50):newinfo.getGoods_jingle());
+				String imgurl = newinfo.getGoods_image();
+				imgurl = imgurl.substring(0, imgurl.indexOf("_"));
+				try {
+					String date = DateUtil.longToString(Long.valueOf(newinfo.getGoods_selltime()+"000"), "yyyy-MM-dd");
+					holder.setImageUrl(R.id.new_img, UrlContants.GIFTIMGURL+imgurl+File.separator+newinfo.getGoods_image(), 10f)
+					.setText(R.id.new_title, newinfo.getGoods_name()).setText(R.id.new_createtime, date+"发布")
+					.setText(R.id.new_content, newinfo.getGoods_jingle().length()>50?newinfo.getGoods_jingle().substring(0,50):newinfo.getGoods_jingle());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		};
         advert_listview.setAdapter(newAdapter);

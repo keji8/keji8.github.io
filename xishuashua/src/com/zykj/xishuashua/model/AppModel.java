@@ -124,18 +124,21 @@ public class AppModel {
 	}
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
+        utils.setLatitude(latitude);
 	}
 	public String getLongitude() {
 		return longitude;
 	}
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+		utils.setLongitude(longitude);
 	}
 	public String getChannelid() {
 		return channelid;
 	}
 	public void setChannelid(String channelid) {
 		this.channelid = channelid;
+		utils.setChannelid(channelid);
 	}
 	public void clear(){
 		this.setUsername("");

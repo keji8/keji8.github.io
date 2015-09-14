@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.loopj.android.http.RequestParams;
 import com.zykj.xishuashua.BaseActivity;
@@ -30,6 +32,8 @@ public class UserStoreActivity extends BaseActivity implements IXListViewListene
 	private Handler mHandler = new Handler();
 	
 	private MyCommonTitle myCommonTitle;
+	private RelativeLayout bottom_bar;
+	private TextView btn_delete;
     private XListView myListView;
 	private GiftAdapter adapter;
 	private List<Gift> gifts = new ArrayList<Gift>();
@@ -48,7 +52,12 @@ public class UserStoreActivity extends BaseActivity implements IXListViewListene
 	 */
 	private void initView() {
 		myCommonTitle = (MyCommonTitle)findViewById(R.id.aci_mytitle);
+		myCommonTitle.setEditTitle("编辑");
+		myCommonTitle.setLisener(this, null);
 		myCommonTitle.setTitle("我的收藏");
+		bottom_bar = (RelativeLayout)findViewById(R.id.bottom_bar);
+		btn_delete = (TextView)findViewById(R.id.btn_delete);
+		setListener(btn_delete);
 		
 		myListView = (XListView)findViewById(R.id.advert_listview);
 		adapter = new GiftAdapter(UserStoreActivity.this, R.layout.ui_item_gift, gifts);
@@ -60,8 +69,61 @@ public class UserStoreActivity extends BaseActivity implements IXListViewListene
 
 		handler.sendEmptyMessage(1);
 	}
+	
 
-    /**
+    @Override
+	public void onClick(View view) {
+    	switch (view.getId()) {
+		case R.id.aci_edit_btn:
+			/**编辑*/
+			adapter.setChecked(!adapter.isChecked());
+			bottom_bar.setVisibility(adapter.isChecked()?View.VISIBLE:View.GONE);
+			myCommonTitle.setEditTitle(adapter.isChecked()?"取消":"编辑");
+			break;
+		case R.id.btn_delete:
+			/**删除*/
+			StringBuffer str = new StringBuffer();
+			for (int i = 0; i < gifts.size(); i++) {
+                if(gifts.get(i).isChecked()){
+                    String id= gifts.get(i).getGoods_id();
+                    str.append(id + ",");
+                }
+			}
+			//Tools.toast(UserStoreActivity.this, str.substring(0,str.length()-1));
+//            RequestParams giftdel = new RequestParams();
+//            giftdel.put("goodIds",str.substring(0,str.length()-1));
+//            HttpUtils.deleteStore(new HttpErrorHandler() {
+//				@Override
+//				public void onRecevieSuccess(JSONObject json) {
+//        			Tools.toast(UserStoreActivity.this, "删除");
+//    				page = 1;
+//    				requestData();
+//				}
+//			},giftdel);
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View convertView, int position, long checkedId) {
+		Gift gift = gifts.get(position-1);
+        if(!adapter.isChecked()){
+            /**收藏详情界面*/
+    		if("news".equals(gift.getStore_name())){
+    			startActivity(new Intent(UserStoreActivity.this, IndexNewDetailActivity.class).putExtra("newId", gift.getGoods_id()));
+    		}else{
+    			startActivity(new Intent(UserStoreActivity.this, GiftDetailActivity.class)
+    				.putExtra("goods_id", gift.getGoods_id()).putExtra("saw", gift.getSaw()));
+    		}
+        }else{
+        	gift.setChecked(!gift.isChecked());
+            adapter.notifyDataSetChanged();
+        }
+	}
+
+	/**
      * 请求数据
      */
     public void requestData() {
@@ -107,17 +169,6 @@ public class UserStoreActivity extends BaseActivity implements IXListViewListene
 			}
 		}
 	};
-
-	@Override
-	public void onItemClick(AdapterView<?> parent, View convertView, int position, long checkedId) {
-		Gift gift = gifts.get(position-1);
-		if("news".equals(gift.getStore_name())){
-			startActivity(new Intent(UserStoreActivity.this, IndexNewDetailActivity.class).putExtra("newId", gift.getGoods_id()));
-		}else{
-			startActivity(new Intent(UserStoreActivity.this, GiftDetailActivity.class)
-				.putExtra("goods_id", gift.getGoods_id()).putExtra("saw", gift.getSaw()));
-		}
-	}
 
 	@Override
 	public void onRefresh() {

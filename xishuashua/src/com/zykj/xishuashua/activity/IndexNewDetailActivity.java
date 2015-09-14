@@ -1,12 +1,18 @@
 package com.zykj.xishuashua.activity;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.text.Html;
+import android.text.Html.ImageGetter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,15 +20,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.xishuashua.BaseActivity;
 import com.zykj.xishuashua.R;
 import com.zykj.xishuashua.adapter.CommonAdapter;
@@ -55,7 +58,6 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 	private CheckBox msg_dw_laud,msg_dw_star,msg_dw_comment,msg_dw_share,bottom_comment;
 	private boolean check_laud,check_star;
 	private ImageView bottom_comment_show,bottom_store,bottom_mobile;
-	private LinearLayout msg_content_img;
 	private RelativeLayout layout_laud;
 	private XListView msg_listview;
 	private CommonAdapter<Comment> commonAdapter;
@@ -63,9 +65,9 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 	private EditText text;
 	private Handler mHandler = new Handler();
 	private List<Comment> comments = new ArrayList<Comment>();
-	private LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 	
 	private JSONObject good;
+	private String html;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,7 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 	 */
 	private void initView() {
 		myCommonTitle = (MyCommonTitle)findViewById(R.id.aci_mytitle);
-		myCommonTitle.setTitle("红包详情");
+		myCommonTitle.setTitle("新闻详情");
 		myCommonTitle.setLisener(null, this);
 		
 		commonAdapter = new CommonAdapter<Comment>(this, R.layout.ui_item_comment, comments) {
@@ -118,7 +120,7 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 		msg_dw_share = (CheckBox)headView.findViewById(R.id.msg_dw_share);//分享
 		msg_dw_share.setClickable(false);//不能点击
 		msg_content = (TextView)headView.findViewById(R.id.msg_content);//内容
-		msg_content_img = (LinearLayout)headView.findViewById(R.id.msg_content_img);//图片展示
+//		msg_content_img = (LinearLayout)headView.findViewById(R.id.msg_content_img);//图片展示
 		
 		bottom_comment = (MyCheckBox)findViewById(R.id.bottom_comment);//添加评论
 		bottom_comment_show = (ImageView)findViewById(R.id.bottom_comment_show);//查看评论
@@ -127,6 +129,52 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 		
 		setListener(layout_laud, bottom_comment, bottom_comment_show, bottom_store, bottom_mobile);
 	}
+
+	// 因为从网上下载图片是耗时操作 所以要开启新线程
+	Thread t = new Thread(new Runnable() {
+		Message msg = Message.obtain();
+		@Override
+		public void run() {
+			/**
+			 * 要实现图片的显示需要使用Html.fromHtml的一个重构方法：public static Spanned fromHtml
+			 * (String source, Html.ImageGetterimageGetter, Html.TagHandler
+			 * tagHandler)其中Html.ImageGetter是一个接口，我们要实现此接口，在它的getDrawable
+			 * (String source)方法中返回图片的Drawable对象才可以。
+			 */
+			ImageGetter imageGetter = new ImageGetter() {
+				@Override
+				public Drawable getDrawable(String source) {
+					URL url;
+					Drawable drawable = null;
+					try {
+						url = new URL(source);
+						drawable = Drawable.createFromStream(url.openStream(), null);
+						drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return drawable;
+				}
+			};
+			CharSequence test = Html.fromHtml(html, imageGetter, null);
+			msg.what = 0x101;
+			msg.obj = test;
+			handler.sendMessage(msg);
+		}
+	});
+
+	/**异步加载红包体*/
+	@SuppressLint("HandlerLeak")
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 0x101) {
+				msg_content.setText((CharSequence) msg.obj);
+				MyRequestDailog.closeDialog();
+			}
+			super.handleMessage(msg);
+		}
+	};
 	
 	/**
 	 * 请求红包详情和评论
@@ -160,18 +208,9 @@ public class IndexNewDetailActivity extends BaseActivity implements IXListViewLi
 			good = json.getJSONObject("data");
 			message_title.setText(good.getString("goods_name"));
 			msg_content.setText(good.getString("goods_jingle"));
-			msg_content_img.removeAllViews();
-			Object jsonImg = json.get("images");
-			if (jsonImg instanceof JSONArray){
-				for (Object object : (JSONArray)jsonImg) {
-					String img_url = ((JSONObject)object).getString("goods_image");
-					ImageView imageView = new ImageView(IndexNewDetailActivity.this);
-					imageView.setLayoutParams(params);
-					params.setMargins(0, 20, 0, 0);
-					ImageLoader.getInstance().displayImage(UrlContants.GIFTIMGURL+img_url, imageView);
-					msg_content_img.addView(imageView);
-				}
-			}
+			html = good.getString("goods_body");
+			MyRequestDailog.showDialog(IndexNewDetailActivity.this, "");
+			t.start();
 			msg_dw_laud.setText(good.getString("goods_favoritenum"));
 			msg_dw_star.setText(good.getString("goods_collectnum"));
 			msg_dw_comment.setText(good.getString("goods_commentnum"));

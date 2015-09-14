@@ -22,6 +22,15 @@
 	        android:layout_width="222dp"
 	        android:layout_height="wrap_content"/> 
 	</RelativeLayout>
+    <TextView 
+        android:id="@+id/gift_allnum"
+        android:text="@string/message"
+        android:textSize="@dimen/t_eight"
+        android:textColor="@color/btn_red"
+        android:gravity="center"
+    	android:background="@color/content_background_color"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fifteen"/>
 	<com.zykj.xishuashua.view.HorizontalListView
 	    android:id="@+id/gift_hlistview"
         android:layout_width="wrap_content"

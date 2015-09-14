@@ -33,6 +33,8 @@ public class Gift implements Serializable{
 	private String goods_serial;//兴趣标签
 	private String saw;
 	
+	private boolean isChecked;//是否选中
+	
 	public String getGoods_id() {
 		return goods_id;
 	}
@@ -164,5 +166,11 @@ public class Gift implements Serializable{
 	}
 	public void setSaw(String saw) {
 		this.saw = saw;
+	}
+	public boolean isChecked() {
+		return isChecked;
+	}
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
 	}
 }

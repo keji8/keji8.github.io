@@ -1,5 +1,6 @@
 package com.zykj.xishuashua.activity;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,10 +163,12 @@ public class IndexActivity extends BaseActivity implements OnItemClickListener{
 			index_list.setAdapter(new CommonAdapter<Gift>(IndexActivity.this, R.layout.ui_item_new,  list.size()>5?list.subList(0, 5):list) {
 				@Override
 				public void convert(ViewHolder holder, Gift newinfo) {
+					String imgurl = newinfo.getGoods_image();
+					imgurl = imgurl.substring(0, imgurl.indexOf("_"));
 					if(holder.getPosition()<5){
 						try {
-							String date = DateUtil.longToString(Long.valueOf(newinfo.getGoods_selltime()), "yyyy-MM-DD");
-							holder.setImageUrl(R.id.new_img, UrlContants.GIFTIMGURL+newinfo.getGoods_image(), 10f)
+							String date = DateUtil.longToString(Long.valueOf(newinfo.getGoods_selltime()+"000"), "yyyy-MM-dd");
+							holder.setImageUrl(R.id.new_img, UrlContants.GIFTIMGURL+imgurl+File.separator+newinfo.getGoods_image(), 10f)
 							.setText(R.id.new_title, newinfo.getGoods_name()).setText(R.id.new_createtime, date)
 							.setText(R.id.new_content, newinfo.getGoods_jingle().length()>50?newinfo.getGoods_jingle().substring(0,50):newinfo.getGoods_jingle());
 						} catch (ParseException e) {
@@ -188,20 +191,24 @@ public class IndexActivity extends BaseActivity implements OnItemClickListener{
 		}
 		@Override
 		public View getView(int position, View convertView, ViewGroup container) {
+			String imgurl = imageList.get(position);
+			imgurl = imgurl.substring(0, imgurl.indexOf("_"));
 			ImageView imageView;
 			if (convertView == null) {
 				convertView = imageView = new ImageView(IndexActivity.this);
 				imageView.setScaleType(ScaleType.FIT_XY);
-				imageView.setId(Integer.valueOf(specialList.get(position).getGoods_id()));
+				imageView.setId(Integer.valueOf(position));
 				convertView.setTag(imageView);
 			} else {
 				imageView = (ImageView) convertView.getTag();
 			}
-			ImageLoader.getInstance().displayImage(UrlContants.GIFTIMGURL+imageList.get(position), imageView);
+			ImageLoader.getInstance().displayImage(UrlContants.GIFTIMGURL+imgurl+File.separator+imageList.get(position), imageView);
 			imageView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					startActivity(new Intent(IndexActivity.this, GiftDetailActivity.class).putExtra("goods_id", view.getId()+""));
+					int index = Integer.valueOf(view.getId());
+					startActivity(new Intent(IndexActivity.this, GiftDetailActivity.class)
+						.putExtra("goods_id", specialList.get(index).getGoods_id()).putExtra("saw", specialList.get(index).getGoods_id()));
 				}
 			});
 			return convertView;
@@ -236,7 +243,7 @@ public class IndexActivity extends BaseActivity implements OnItemClickListener{
 			getmemberinterests(R.id.index_image3);
 			break;
 		case R.id.tv_index_gift:
-			/*兴趣标签*/
+			/*更多新闻*/
 			startActivity(new Intent(this, IndexNewsActivity.class));
 			break;
 		}

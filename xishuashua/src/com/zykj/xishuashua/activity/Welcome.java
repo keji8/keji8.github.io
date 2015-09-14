@@ -94,7 +94,6 @@ public class Welcome extends BaseActivity {
 		params.put("login_password", BaseApp.getModel().getPassword());
 		params.put("lati", BaseApp.getModel().getLatitude());
 		params.put("longi", BaseApp.getModel().getLongitude());
-		params.put("channel_id", BaseApp.getModel().getLongitude());
         HttpUtils.login(new HttpErrorHandler() {
 			@Override
 			public void onRecevieSuccess(JSONObject json) {

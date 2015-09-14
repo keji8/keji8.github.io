@@ -219,20 +219,20 @@ public class LoginActivity extends BaseActivity{
 				params.put("member_name", response.getString("nickname"));
 				params.put("member_sex", "男".equals(response.getString("gender"))?"1":"2");
 				params.put("member_avatar", response.getString("figureurl_qq_2"));
-				HttpUtils.getAllInterests(new HttpErrorHandler() {
-					@Override
-					public void onRecevieSuccess(JSONObject json) {
-						JSONObject data = json.getJSONObject("data");
-						BaseApp.getModel().setAvatar(data.getString("member_avatar"));
-						BaseApp.getModel().setMobile(data.getString("member_mobile"));//手机号
-						BaseApp.getModel().setMoney(data.getString("member_id"));//红包金额
-						BaseApp.getModel().setNumber(data.getString("member_id"));//红包个数
-//						BaseApp.getModel().setPassword(password);//登录密码
-						BaseApp.getModel().setUserid(data.getString("member_id"));//用户Id
-						BaseApp.getModel().setUsername(data.getString("member_name"));//登录账号
-				        submitDeviceToken("device_token", data.getString("member_id"));
-					}
-				});
+//				HttpUtils.getAllInterests(new HttpErrorHandler() {
+//					@Override
+//					public void onRecevieSuccess(JSONObject json) {
+//						JSONObject data = json.getJSONObject("data");
+//						BaseApp.getModel().setAvatar(data.getString("member_avatar"));
+//						BaseApp.getModel().setMobile(data.getString("member_mobile"));//手机号
+//						BaseApp.getModel().setMoney(data.getString("member_id"));//红包金额
+//						BaseApp.getModel().setNumber(data.getString("member_id"));//红包个数
+////						BaseApp.getModel().setPassword(password);//登录密码
+//						BaseApp.getModel().setUserid(data.getString("member_id"));//用户Id
+//						BaseApp.getModel().setUsername(data.getString("member_name"));//登录账号
+//				        submitDeviceToken("device_token", data.getString("member_id"));
+//					}
+//				});
 				//Log.e("response", msg.obj.toString());
 //				if (response.getString("nickname") != null) {
 //					BaseApp.getModel().setMobile(response.getString("nickname"));

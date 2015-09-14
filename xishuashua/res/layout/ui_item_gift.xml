@@ -7,6 +7,17 @@
     android:padding="@dimen/eight"
     android:background="@drawable/devide_gray_list" >
     
+    <CheckBox
+        android:visibility="gone"
+        android:id="@+id/cb_choice"
+        android:layout_width="30dip"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+        android:layout_gravity="center_vertical"
+        android:button="@drawable/checkbox_style"
+        android:focusableInTouchMode="false" />
+    
     <ImageView 
 		android:id="@+id/gift_image"
         android:layout_width="@dimen/sixty_five"

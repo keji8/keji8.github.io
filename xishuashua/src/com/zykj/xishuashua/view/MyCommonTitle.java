@@ -21,8 +21,8 @@ public class MyCommonTitle extends RelativeLayout {
 		super(context, attrs);
 		LayoutInflater.from(context).inflate(R.layout.ui_mycommontitle, this);
 		titleBack = (ImageView) findViewById(R.id.aci_back_btn);//后退
-		sharedBtn = (ImageView) findViewById(R.id.aci_shared_btn);//分享
 		titleEdit = (TextView) findViewById(R.id.aci_edit_btn);//编辑
+		sharedBtn = (ImageView) findViewById(R.id.aci_shared_btn);//分享
 		titleBack.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -39,14 +39,6 @@ public class MyCommonTitle extends RelativeLayout {
 		if(sharedListener != null) {
 			sharedBtn.setVisibility(View.VISIBLE);
 			sharedBtn.setOnClickListener(sharedListener);
-		}
-	}
-
-	public void setBackLisener(OnClickListener backListener) {
-		if(backListener != null) {
-			titleBack.setOnClickListener(backListener);
-		}else{
-			titleBack.setOnClickListener(null);
 		}
 	}
 	

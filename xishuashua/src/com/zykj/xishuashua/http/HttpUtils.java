@@ -95,8 +95,8 @@ public class HttpUtils {
     }
 
     /*兴趣标签列表*/
-    public static void getAllInterests(AsyncHttpResponseHandler handler){
-        client.post(UrlContants.getUrl(UrlContants.GETALLINTEREST), handler);
+    public static void getAllInterests(AsyncHttpResponseHandler handler, RequestParams params){
+        client.post(UrlContants.getUrl(UrlContants.GETALLINTEREST), params, handler);
     }
 
     /*获取用户已选标签*/
@@ -142,5 +142,15 @@ public class HttpUtils {
     /*上传设备channel_id*/
     public static void getchannelid(AsyncHttpResponseHandler handler, String channel_id){
         client.get(UrlContants.getUrl(UrlContants.GETCHANNELID)+"&channel_id="+channel_id, handler);
+    }
+
+    /*上传设备channel_id*/
+    public static void getenvePointsForShare(AsyncHttpResponseHandler handler, String goods_id){
+    	client.get(UrlContants.getUrl(UrlContants.POINTSFORSHARE)+"&goods_id="+goods_id, handler);
+    }
+    
+    /*评论点赞*/
+    public static void clickCommentFavorite(AsyncHttpResponseHandler handler, String comment_id){
+    	client.get(UrlContants.getUrl(UrlContants.COMMENTFAVORITE)+"&comment_id="+comment_id, handler);
     }
 }

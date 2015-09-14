@@ -1,9 +1,12 @@
 package com.zykj.xishuashua.adapter;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.List;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.CheckBox;
 
 import com.zykj.xishuashua.BaseApp;
 import com.zykj.xishuashua.R;
@@ -15,15 +18,31 @@ import com.zykj.xishuashua.utils.StringUtil;
 
 public class GiftAdapter extends CommonAdapter<Gift> {
 	
+	private boolean isChecked;
+
+	public boolean isChecked() {
+		return isChecked;
+	}
+	
+	public void setChecked(boolean isChecked){
+		this.isChecked = isChecked;
+		this.notifyDataSetChanged();
+	}
+	
 	public GiftAdapter(Context context, int resource, List<Gift> datas) {
 		super(context, resource, datas);
 	}
 
 	@Override
 	public void convert(final ViewHolder holder, Gift gift) {
+		/**删除*/
+		final CheckBox mCheckBox = holder.getView(R.id.cb_choice);
+		mCheckBox.setChecked(gift.isChecked());
+		mCheckBox.setVisibility(isChecked?View.VISIBLE:View.GONE);
+		
+		String imgurl = gift.getGoods_image();
+		imgurl = imgurl.substring(0, imgurl.indexOf("_"));
 		long continueTime = Long.parseLong(StringUtil.toString(gift.getCurrentSeconds(), "0"));
-//		long startTime = Long.parseLong(StringUtil.toString(gift.getGoods_selltime(), "0"));
-//		long seconds = startTime + continueTime - System.currentTimeMillis()/1000;
 		long marketprice = Long.valueOf(gift.getGoods_marketprice());
 		String status = "news".equals(gift.getStore_name())?"2":marketprice>0?"0":"1";
 		try {
@@ -41,7 +60,7 @@ public class GiftAdapter extends CommonAdapter<Gift> {
 				.setVisibility(R.id.gift_distance, !"2".equals(status))
 				.setVisibility(R.id.gift_label, !"2".equals(status))
 				.setVisibility(R.id.gift_btn, !"2".equals(status))
-				.setImageUrl(R.id.gift_image, UrlContants.GIFTIMGURL+gift.getGoods_image(), 10f)
+				.setImageUrl(R.id.gift_image, UrlContants.GIFTIMGURL+imgurl+File.separator+gift.getGoods_image(), 10f)
 				.setText(R.id.gift_time, continueTime>1?"倒计时"+continueTime/60+"分"+continueTime%60+"秒":"")
 				.setText(R.id.gift_distance, CommonUtils.GetDistance(Double.valueOf(gift.getGoods_lati()), Double.valueOf(gift.getGoods_longi()), 
 						Double.valueOf(BaseApp.getModel().getLatitude()), Double.valueOf(BaseApp.getModel().getLongitude()))+"m");

@@ -1,6 +1,7 @@
 package com.zykj.xishuashua.utils;
 
 import java.io.File;
+import java.util.HashMap;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,16 +11,15 @@ import android.os.Environment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zykj.xishuashua.BaseApp;
 import com.zykj.xishuashua.R;
-import com.zykj.xishuashua.http.UrlContants;
 
 public class CommonUtils {
 
@@ -78,13 +78,28 @@ public class CommonUtils {
 		return !StringUtil.isEmpty(BaseApp.getModel().getUserid());
 	}
 	
-	public static void showShare(Context context, String title, String content, String ImageUrl, String downloadUrl){
+	public static void showShare(final Context context, String title, String content, String ImageUrl, final String downloadUrl){
 		ShareSDK.initSDK(context);
 		OnekeyShare oks = new OnekeyShare();
 		//关闭sso授权
 		oks.disableSSOWhenAuthorize(); 
 		// 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
-		//oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+		oks.setCallback(new PlatformActionListener() {
+			@Override
+			public void onError(Platform arg0, int arg1, Throwable arg2) {
+				Tools.toast(context, "分享失败");
+			}
+			
+			@Override
+			public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+				Tools.toast(context, "分享成功");
+			}
+			
+			@Override
+			public void onCancel(Platform arg0, int arg1) {
+				Tools.toast(context, "取消分享");
+			}
+		});
 		// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
 		oks.setTitle(title);//喜刷刷
 		// titleUrl是标题的网络链接，仅在人人网和QQ空间使用

@@ -6,6 +6,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+import com.zykj.xishuashua.BaseApp;
 import com.zykj.xishuashua.R;
 import com.zykj.xishuashua.fragment.AlipayFragment;
 import com.zykj.xishuashua.fragment.CallingFragment;
@@ -50,7 +51,7 @@ public class UserWalletActivity extends FragmentActivity{
 	
     private void initFragment() {
     	Bundle bundle = new Bundle();
-    	bundle.putString("money", "25");
+    	bundle.putString("money", BaseApp.getModel().getMoney());
         alipayFragment = new AlipayFragment();alipayFragment.setArguments(bundle);
         callingFragment= new CallingFragment();callingFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().add(R.id.frag_layout,alipayFragment).

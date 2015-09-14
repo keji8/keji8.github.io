@@ -12,7 +12,7 @@
         android:id="@+id/comment_images"
         android:layout_width="@dimen/sixty"
         android:layout_height="@dimen/sixty"
-        android:src="@drawable/comment_img"
+        android:src="@drawable/icon_image_default"
         android:scaleType="fitXY"
         android:layout_marginTop="@dimen/three"
         android:contentDescription="@string/app_name"/>

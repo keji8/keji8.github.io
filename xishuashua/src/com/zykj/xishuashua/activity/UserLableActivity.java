@@ -92,7 +92,7 @@ public class UserLableActivity extends BaseActivity{
 				};
 				label_list.setAdapter(adapter);
 			}
-		});
+		}, null);
 	}
 	
 	/**

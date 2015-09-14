@@ -30,7 +30,7 @@
         	android:background="@drawable/gift_wallet_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/gift_forthwith"/>
+            android:text="@string/pay_zhifubao"/>
         <RadioButton
             android:id="@+id/radio_btn2"
             android:textSize="16sp"
@@ -41,7 +41,7 @@
         	android:background="@drawable/gift_wallet_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/gift_perpetual"/>
+            android:text="@string/pay_phone"/>
 	</RadioGroup>
 
 	<FrameLayout

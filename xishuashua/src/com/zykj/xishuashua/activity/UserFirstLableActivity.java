@@ -72,7 +72,7 @@ public class UserFirstLableActivity extends BaseActivity{
 		params.put("lati", BaseApp.getModel().getLatitude());
 		params.put("longi", BaseApp.getModel().getLongitude());
         HttpUtils.login(res_login, params);//请求登录
-		HttpUtils.getAllInterests(res_getAllInterests);//兴趣标签
+		HttpUtils.getAllInterests(res_getAllInterests, null);//兴趣标签
 	}
 	
 	/**

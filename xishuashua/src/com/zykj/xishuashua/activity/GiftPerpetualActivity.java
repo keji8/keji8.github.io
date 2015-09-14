@@ -40,9 +40,10 @@ public class GiftPerpetualActivity extends BaseActivity implements IXListViewLis
 
 	private HorizontalListView gift_hlistview;
 	private XListView mListView;//红包列表
+	private TextView gift_allnum;
 	private SegmentThreeView order_seg;//App、商家、者个人
 	
-	private static final String NUM = "2";//每页显示条数
+	private static final String NUM = "10";//每页显示条数
 	private int page = 1;//当前第几页
 	private String grade_id = "app";//2-个人红包  1-商家红包  app-app红包
 	private String interesttag;//兴趣标签
@@ -78,13 +79,14 @@ public class GiftPerpetualActivity extends BaseActivity implements IXListViewLis
 		order_seg.setOnSegmentViewClickListener(this);
 		
 		gift_hlistview = (HorizontalListView)findViewById(R.id.gift_hlistview);//标签切换
+		gift_allnum = (TextView)findViewById(R.id.gift_allnum);//未抢红包总数
 		mListView = (XListView)findViewById(R.id.gift_listview);//选择标签
         adapter = new GiftAdapter(this, R.layout.ui_item_gift, gifts);
         mListView.setAdapter(adapter);
 		mListView.setPullLoadEnable(true);
 		mListView.setXListViewListener(this);
 		mListView.setOnItemClickListener(this);
-		HttpUtils.getAllInterests(getAllInterests);
+		requestInterest();
 		iAdapter = new CommonAdapter<Interest>(this, R.layout.ui_item_hlabel, interest1) {
 			@Override
 			public void convert(ViewHolder holder, Interest interest) {
@@ -108,15 +110,27 @@ public class GiftPerpetualActivity extends BaseActivity implements IXListViewLis
 					}
 					interest1.get(position).setChecked(true);
 					iAdapter.notifyDataSetChanged();
+					page = 1;
 					interesttag = interest1.get(position).getInterest_id();
 					requestData();
 				}
 			}
 		});
 	}
-	
+
+
 	/**
-	 * 请求网络数据----标签、红包
+	 * 请求网络数据----标签
+	 */
+	private void requestInterest() {
+    	RequestParams params = new RequestParams();
+    	params.put("marketprice", "0");//"1"即时红包, "0"永久红包
+    	params.put("grade_id", grade_id);//2-个人红包  1-商家红包  app-app红包(默认)
+		HttpUtils.getAllInterests(getAllInterests, params);
+	}
+
+	/**
+	 * 请求网络数据----红包
 	 */
 	private void requestData(){
     	RequestParams params = new RequestParams();
@@ -162,16 +176,21 @@ public class GiftPerpetualActivity extends BaseActivity implements IXListViewLis
 		interest0.clear();
 		interest1.clear();
 		interest2.clear();
-		interest0 = list;
-		interest2 = list;
+		interest0.addAll(list);
+		interest2.addAll(list);
+		int all_num = 0;
 		for (int i = 0; i < list.size(); i++) {
+			Interest interest = list.get(i);
+			int a =  Integer.valueOf(interest.getCount());
+			all_num = all_num + a;
 			for (String interest_id : interestIds) {
 				if(interest_id.equals(list.get(i).getInterest_id())){
 					interest1.add(list.get(i));
-					interest2.remove(i);
+					interest2.remove(list.get(i));
 				}
 			}
 		}
+		gift_allnum.setText("你有"+all_num+"个红包未领取!");
 	}
 	
 	/**
@@ -239,19 +258,19 @@ public class GiftPerpetualActivity extends BaseActivity implements IXListViewLis
 				if(position == 0){
 					page = 1;
 					grade_id = "app";
-					HttpUtils.getAllInterests(getAllInterests);
+					requestInterest();
 					requestData();
 					onLoad();
 				}else if(position == 1){
 					page = 1;
 					grade_id = "1";
-					HttpUtils.getAllInterests(getAllInterests);
+					requestInterest();
 					requestData();
 					onLoad();
 				}else{
 					page = 1;
 					grade_id = "2";
-					HttpUtils.getAllInterests(getAllInterests);
+					requestInterest();
 					requestData();
 					onLoad();
 				}
