@@ -83,7 +83,7 @@ public class AdvertFragment extends Fragment implements IXListViewListener,OnIte
      */
     public void requestData() {
     	RequestParams params = new RequestParams();
-    	params.put("marketprice", isperpetual);//0即时红包  1永久红包
+    	params.put("marketprice", isperpetual);//1即时红包  0永久红包
     	params.put("page", String.valueOf(page));
     	params.put("per_page", NUM);
 		MyRequestDailog.showDialog(getActivity(), "");

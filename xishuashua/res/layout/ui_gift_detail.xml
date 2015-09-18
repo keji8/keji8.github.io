@@ -42,7 +42,7 @@
             android:layout_width="0.0dip"
             android:src="@drawable/comment_normal"
             android:layout_height="match_parent"
-            android:layout_weight="20"
+            android:layout_weight="15"
             android:padding="@dimen/fifteen"
             android:contentDescription="@string/app_name"/>
         <ImageView 
@@ -50,7 +50,7 @@
             android:layout_width="0.0dip"
             android:src="@drawable/star_normal"
             android:layout_height="match_parent"
-            android:layout_weight="20"
+            android:layout_weight="15"
             android:padding="@dimen/fifteen"
             android:contentDescription="@string/app_name"/>
         <ImageView 
@@ -58,7 +58,15 @@
             android:layout_width="0.0dip"
             android:src="@drawable/phone_normal"
             android:layout_height="match_parent"
-            android:layout_weight="20"
+            android:layout_weight="15"
+            android:padding="@dimen/fifteen"
+            android:contentDescription="@string/app_name"/>
+        <ImageView 
+            android:id="@+id/bottom_address"
+            android:layout_width="0.0dip"
+            android:src="@drawable/address"
+            android:layout_height="match_parent"
+            android:layout_weight="15"
             android:padding="@dimen/fifteen"
             android:contentDescription="@string/app_name"/>
     </LinearLayout>

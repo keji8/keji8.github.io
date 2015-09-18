@@ -190,6 +190,12 @@
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.MapActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         
         <activity
             android:name="cn.smssdk.SMSSDKUIShell"

@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.LocationClientOption.LocationMode;
 import com.zykj.xishuashua.utils.Tools;
@@ -23,7 +22,6 @@ public abstract class BaseActivity extends Activity implements
 	
 	protected LocationMode tempMode = LocationMode.Hight_Accuracy;
 	protected String tempcoor="bd09ll";
-	protected LocationClient mLocationClient;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);

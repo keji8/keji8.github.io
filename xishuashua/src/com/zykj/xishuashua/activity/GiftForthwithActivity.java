@@ -103,8 +103,8 @@ public class GiftForthwithActivity extends BaseActivity implements IXListViewLis
 		gift_hlistview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View convertView, int position, long checkId) {
-				if(interest1.size() < interest0.size() && position == interest1.size()-1){
-					interest1.remove(position);
+				if("more".equals(interest1.get(position).getInterest_id())){
+					interest1.remove(interest1.get(position));
 					interest1.addAll(interest2);
 					iAdapter.notifyDataSetChanged();
 				}else{
@@ -162,9 +162,12 @@ public class GiftForthwithActivity extends BaseActivity implements IXListViewLis
 				iAdapter.notifyDataSetChanged();
 			}else{
 				/** 加载用户爱好兴趣标签 */
-				Interest interest = new Interest();
-				interest.setInterest_name("更多");
-				interest1.add(interest);
+				if(interest1.size() < list.size()){
+					Interest interest = new Interest();
+					interest.setInterest_id("more");
+					interest.setInterest_name("更多");
+					interest1.add(interest);
+				}
 				interest1.get(0).setChecked(true);
 				iAdapter.notifyDataSetChanged();
 			}

@@ -2,7 +2,9 @@ package com.zykj.xishuashua.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,15 +13,17 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 import com.zykj.xishuashua.BaseActivity;
 import com.zykj.xishuashua.R;
 import com.zykj.xishuashua.adapter.GiftAdapter;
 import com.zykj.xishuashua.http.EntityHandler;
+import com.zykj.xishuashua.http.HttpErrorHandler;
 import com.zykj.xishuashua.http.HttpUtils;
 import com.zykj.xishuashua.model.Gift;
 import com.zykj.xishuashua.utils.StringUtil;
+import com.zykj.xishuashua.utils.Tools;
 import com.zykj.xishuashua.view.MyCommonTitle;
 import com.zykj.xishuashua.view.MyRequestDailog;
 import com.zykj.xishuashua.view.XListView;
@@ -82,24 +86,29 @@ public class UserStoreActivity extends BaseActivity implements IXListViewListene
 			break;
 		case R.id.btn_delete:
 			/**删除*/
-			StringBuffer str = new StringBuffer();
-			for (int i = 0; i < gifts.size(); i++) {
-                if(gifts.get(i).isChecked()){
-                    String id= gifts.get(i).getGoods_id();
-                    str.append(id + ",");
-                }
-			}
-			//Tools.toast(UserStoreActivity.this, str.substring(0,str.length()-1));
-//            RequestParams giftdel = new RequestParams();
-//            giftdel.put("goodIds",str.substring(0,str.length()-1));
-//            HttpUtils.deleteStore(new HttpErrorHandler() {
-//				@Override
-//				public void onRecevieSuccess(JSONObject json) {
-//        			Tools.toast(UserStoreActivity.this, "删除");
-//    				page = 1;
-//    				requestData();
-//				}
-//			},giftdel);
+			new AlertDialog.Builder(this).setTitle("删除").setMessage("您确定要删除吗?")
+	            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		        @Override
+		        public void onClick(DialogInterface dialogInterface, int position) {
+					StringBuffer str = new StringBuffer();
+					for (int i = 0; i < gifts.size(); i++) {
+		                if(gifts.get(i).isChecked()){
+		                    String id= gifts.get(i).getGoods_id();
+		                    str.append(id + ",");
+		                }
+					}
+		            RequestParams giftdel = new RequestParams();
+		            giftdel.put("goods_id",str.substring(0,str.length()-1));
+		            HttpUtils.deletecollect(new HttpErrorHandler() {
+						@Override
+						public void onRecevieSuccess(JSONObject json) {
+		        			Tools.toast(UserStoreActivity.this, "删除成功");
+		    				page = 1;
+		    				requestData();
+						}
+					},giftdel);
+		        }
+	     	}).setNegativeButton("取消",null).show();
 			break;
 		default:
 			break;
@@ -142,6 +151,7 @@ public class UserStoreActivity extends BaseActivity implements IXListViewListene
 		}, params);
     }
 	
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {

@@ -33,6 +33,7 @@
         android:layout_height="@dimen/fifteen"/>
 	<com.zykj.xishuashua.view.HorizontalListView
 	    android:id="@+id/gift_hlistview"
+	    android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="40dp" />
 	<com.zykj.xishuashua.view.XListView 

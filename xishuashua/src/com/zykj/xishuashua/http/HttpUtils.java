@@ -153,4 +153,9 @@ public class HttpUtils {
     public static void clickCommentFavorite(AsyncHttpResponseHandler handler, String comment_id){
     	client.get(UrlContants.getUrl(UrlContants.COMMENTFAVORITE)+"&comment_id="+comment_id, handler);
     }
+    
+    /*删除收藏订单*/
+    public static void deletecollect(AsyncHttpResponseHandler handler, RequestParams params){
+    	client.post(UrlContants.getUrl(UrlContants.DELETECOLLECT), params, handler);
+    }
 }

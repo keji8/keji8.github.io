@@ -70,6 +70,8 @@ public class UrlContants {
     
     public static final String COMMENTFAVORITE = "m=user&a=clickCommentFavorite";//评论点赞
     
+    public static final String DELETECOLLECT = "m=user&a=deletecollect";//删除收藏订单
+    
     public static String getUrl(String token){
         if(token==null || token.equals("")){
             return BASE_URL;

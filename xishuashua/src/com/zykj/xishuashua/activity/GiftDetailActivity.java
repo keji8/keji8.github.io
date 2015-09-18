@@ -60,7 +60,7 @@ public class GiftDetailActivity extends BaseActivity implements
 	private TextView msg_content;
 	private CheckBox msg_dw_laud, msg_dw_star, msg_dw_comment, msg_dw_share, bottom_comment;
 	private boolean check_laud, check_star;
-	private ImageView bottom_comment_show, bottom_store, bottom_mobile;
+	private ImageView bottom_comment_show, bottom_store, bottom_mobile, bottom_address;
 	private RelativeLayout layout_laud;
 	private XListView msg_listview;
 	private CommonAdapter<Comment> commonAdapter;
@@ -129,8 +129,9 @@ public class GiftDetailActivity extends BaseActivity implements
 		bottom_comment_show = (ImageView) findViewById(R.id.bottom_comment_show);// 查看评论
 		bottom_store = (ImageView) findViewById(R.id.bottom_store);// 收藏
 		bottom_mobile = (ImageView) findViewById(R.id.bottom_mobile);// 拨号
+		bottom_address = (ImageView) findViewById(R.id.bottom_address);// 地址
 
-		setListener(layout_laud, bottom_comment, bottom_comment_show, bottom_store, bottom_mobile);
+		setListener(layout_laud, bottom_comment, bottom_comment_show, bottom_store, bottom_mobile, bottom_address);
 	}
 
 	// 因为从网上下载图片是耗时操作 所以要开启新线程
@@ -283,14 +284,8 @@ public class GiftDetailActivity extends BaseActivity implements
 			break;
 		case R.id.aci_shared_btn:
 			// 分享
-			CommonUtils
-					.showShare(
-							this,
-							getString(R.string.app_name),
-							"我从" + good.getString("goods_name") + "那里获得了"
-									+ good.getString("goods_price") + "元的红包",
-							"http://dashboard.mob.com/Uploads/1b692f6c9fceaf93c407afd889c36090.png",
-							null);
+			CommonUtils.showShare(this,getString(R.string.app_name),"我从" + good.getString("goods_name")+"那里获得了"+
+					good.getString("goods_price") + "元的红包", "http://dashboard.mob.com/Uploads/1b692f6c9fceaf93c407afd889c36090.png",null);
 			break;
 		case R.id.layout_laud:
 			clickfavorite();// 点赞
@@ -306,6 +301,9 @@ public class GiftDetailActivity extends BaseActivity implements
 			break;
 		case R.id.bottom_mobile:
 			UIDialog.callTelephone(this, "联系电话：15006598533", this);// 打电话
+			break;
+		case R.id.bottom_address:
+			startActivity(new Intent(this, MapActivity.class).putExtra("lat", good.getString("goods_lati")).putExtra("long", good.getString("goods_longi")));
 			break;
 		case R.id.comment_cancel:
 			UIDialog.closeDialog();// 取消评论

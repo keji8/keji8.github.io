@@ -19,6 +19,15 @@ import com.zykj.xishuashua.utils.StringUtil;
 public class GiftAdapter extends CommonAdapter<Gift> {
 	
 	private boolean isChecked;
+	private String grade_id;
+
+	public String getGrade_id() {
+		return grade_id;
+	}
+
+	public void setGrade_id(String grade_id) {
+		this.grade_id = grade_id;
+	}
 
 	public boolean isChecked() {
 		return isChecked;

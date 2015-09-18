@@ -62,8 +62,8 @@ public class GiftActivity extends FragmentActivity{
 	 * 请求服务器数据---首页
 	 */
 	private void initFragment(){
-		forthwithFragment = AdvertFragment.newInstance("1");//即时广告
-		perpetualFragment = AdvertFragment.newInstance("0");//永久广告
+		forthwithFragment = AdvertFragment.newInstance("1");//即时通知
+		perpetualFragment = AdvertFragment.newInstance("0");//永久通知
 
         getSupportFragmentManager().beginTransaction().add(R.id.advert_contain,forthwithFragment).
             add(R.id.advert_contain,perpetualFragment).show(forthwithFragment).hide(perpetualFragment).commit();
